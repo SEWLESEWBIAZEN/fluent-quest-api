@@ -1,6 +1,6 @@
 
 const usersModel = require('../../model/user/user.model');
-async function validateRegister(data) {
+exports.validateRegister = async (data) => {
     try {
         if (!data?.name) {
             return ({
@@ -51,9 +51,8 @@ async function validateRegister(data) {
     } catch (error) {
         return {
             success: false,
-            message: error?.message || "Internal Server Error",
+            message: error?.message || "Internal Server Error, Validation failed!",
         };
     }
 };
 
-module.exports = { validateRegister };

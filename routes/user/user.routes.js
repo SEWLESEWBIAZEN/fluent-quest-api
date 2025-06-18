@@ -1,5 +1,5 @@
 const express = require("express");
-const register = require("../../controllers/userControllers/register");
+const userController = require("../../controllers/user.controller");
 // const login = require("../../controllers/authControllers/login");
 // const userDashboard = require("../../controllers/userControllers/userDashboard");
 // const auth = require("../../middleware/auth");
@@ -10,7 +10,7 @@ const userRoutes = express.Router();
 
 
 // Routes...
-userRoutes.post("/register", register);
+userRoutes.post("/register", userController.registerUser);
 // userRoutes.post("/login", login);
 
 // userRoutes.post("/forgotpw", forgotPassword);
