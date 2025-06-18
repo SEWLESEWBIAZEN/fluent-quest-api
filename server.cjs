@@ -29,8 +29,7 @@ app.use('/api', routes)
 
 
 // error handling middleware
-app.use((err, req, res, next) => {
-  console.error('Error:', err);
+app.use((err, req, res, next) => {  
   res.status(res.statusCode || 500).json({ error: err || 'Internal Server Error' });
 });
 
