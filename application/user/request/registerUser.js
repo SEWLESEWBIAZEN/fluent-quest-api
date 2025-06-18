@@ -1,9 +1,9 @@
-
 const bcrypt = require("bcrypt");
 const usersModel = require('../../../model/user/user.model');
 const { userTypeOf } = require("../../../utils/userTypeOf");
 const validateUserRegisteration = require('../../../validations/user/validateRegister');
 const { createResponse } = require("../../../utils/responseHelper");
+
 exports.register = async (reqData) => {
     const { username, name, role, email, password, phoneNumber, avatar, streakDays, points, enrolledCourses } = reqData;
     // validate all required fields
