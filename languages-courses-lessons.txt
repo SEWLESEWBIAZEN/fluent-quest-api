@@ -1,0 +1,57 @@
+languages->courses->lessons
+
+courses has language id
+
+lessons has course id
+
+
+user=
+{
+id: object_id,
+name: string,
+email: string(email),
+username: string,
+password: string(hashed),
+role: UserType[],
+avatar: string,
+streakDays: integer,
+points: integer,
+enrolledCourses: courseId[]
+}
+
+language =
+{
+id:object_id,
+name:string,
+code:string,
+flag:object
+}
+
+course =
+{
+id: object_id,
+title: string,
+description: string,
+language_id: foreign_key(language),
+level: LanguageLevel,
+teacherId: foreign_key(user),
+imageUrl: string(file path),
+duration: decimal(in minutes),
+totalLessons: integer,
+rating: decimal,
+studentCount: integer,
+price: decimal
+}
+
+lesson = 
+{
+id: object_id,
+course_id : foreign_key(course),
+title: string,
+content: string,
+type : LessonType,
+duration: decimal(minutes),
+order:integer
+}
+
+
