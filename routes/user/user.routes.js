@@ -11,6 +11,9 @@ const userRoutes = express.Router();
 
 // Routes...
 userRoutes.post("/register", userController.registerUser);
+userRoutes.get("/getAll", userController.getUsers);
+userRoutes.get("/user/:id", userController.getUser);
+
 // userRoutes.post("/login", login);
 
 // userRoutes.post("/forgotpw", forgotPassword);
