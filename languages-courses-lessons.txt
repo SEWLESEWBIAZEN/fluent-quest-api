@@ -8,11 +8,14 @@ lessons has course id
 user=
 {
 id: object_id,
+
 name: string,
 email: string(email),
 username: string,
 password: string(hashed),
+phoneNumber: string,
 role: UserType[],
+
 avatar: string,
 streakDays: integer,
 points: integer,

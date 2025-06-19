@@ -2,16 +2,14 @@
  const { createResponse } = require('../../../utils/responseHelper');
 exports.getAllUsers =async()=>{   
     try {
-        const users = await usersModel.find({}).select('-password'); // Exclude password from the response
-        if (!users || users.length === 0) {
-            
+        const users = await usersModel.find({}).select('-password -__v -userId'); // Exclude password and __v from the response
+        if (!users || users.length === 0) {            
             return createResponse( {
                 statusCode: 404,
                 success: false,
                 message: "No users found!"
             });
-        }
-        
+        }       
         
         // Return the list of users
         return createResponse({

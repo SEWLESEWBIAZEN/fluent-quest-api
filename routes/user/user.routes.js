@@ -1,10 +1,9 @@
 const express = require("express");
+// controller imports
 const userController = require("../../controllers/user.controller");
-// const login = require("../../controllers/authControllers/login");
-// const userDashboard = require("../../controllers/userControllers/userDashboard");
-// const auth = require("../../middleware/auth");
-// const forgotPassword = require("../../controllers/userControllers/forgotPassword");
-// const resetPassword = require("../../controllers/authControllers/resetPassword");
+
+// middleware imports
+const { authCheck, adminCheck } = require("../../middleware/authMiddleware");
 
 const userRoutes = express.Router();
 
