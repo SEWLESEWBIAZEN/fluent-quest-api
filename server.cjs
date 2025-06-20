@@ -33,8 +33,6 @@ app.use((err, req, res, next) => {
   res.status(res.statusCode || 500).json({ error: err || 'Internal Server Error' });
 });
 
-
-
 const hostname = process.env.HOSTNAME || 'localhost'
 app.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);

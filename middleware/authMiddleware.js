@@ -5,7 +5,8 @@ const { createResponse } = require('../utils/responseHelper');
 exports.authCheck = async (req, res, next) => {
     try
     {
-        const firebaseUser =await admin.auth().verifyIdToken(req.headers.authToken);
+        console.log(req.headers.authtoken);
+        const firebaseUser = await admin.auth().verifyIdToken(req.headers.authtoken);
         console.log("FIREBASE USER :", firebaseUser);
         req.user = firebaseUser;
         next();

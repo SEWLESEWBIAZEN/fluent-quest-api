@@ -1,9 +1,7 @@
 const express = require("express");
+
 // controller imports
 const userController = require("../../controllers/user.controller");
-
-// middleware imports
-const { authCheck, adminCheck } = require("../../middleware/authMiddleware");
 
 const userRoutes = express.Router();
 
