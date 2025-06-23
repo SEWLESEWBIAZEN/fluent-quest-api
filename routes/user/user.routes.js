@@ -9,5 +9,6 @@ const userRoutes = express.Router();
 userRoutes.post("/register", userController.registerUser);
 userRoutes.get("/getAll", userController.getUsers);
 userRoutes.get("/user/:id", userController.getUser);
+userRoutes.put("/user/update/:id", userController.updateUser);
 
 module.exports = userRoutes;
