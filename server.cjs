@@ -9,6 +9,7 @@ dotenv.config()
 
 // port the app listen to
 const port = process.env.PORT || 8000
+const host = process.env.HOSTNAME || 'localhost'
 
 // app
 const app = express()
@@ -27,14 +28,14 @@ app.use(express.static('public'))
 
 // routes
 const routes = require('./routes')
+const { createResponse } = require('./utils/responseHelper')
 app.use('/api', routes)
 
 // error handling middleware
-app.use((err, req, res, next) => {  
-  res.status(res.statusCode || 500).json({ error: err || 'Internal Server Error' });
+app.use((err, req, res, next) => {   
+  res.status(res.statusCode || 500).json(createResponse ({statusCode: res.statusCode || 500, success:res.success || false, message:res.message || err || 'Internal Server Error', data: res.data || null }));
 });
 
-const hostname = process.env.HOSTNAME || 'localhost'
-app.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}`);
+app.listen(port, host, () => {
+  console.log(`Server running at http://${host}:${port}`);
 });

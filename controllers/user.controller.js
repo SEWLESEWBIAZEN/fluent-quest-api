@@ -15,7 +15,8 @@ exports.registerUser = async (req, res) => {
 };
 
 exports.getUsers= async (req, res) => {  
-    const result = await getAllUsers.getAllUsers();    
+    const result = await getAllUsers.getAllUsers(); 
+    
     return res.status(result.statusCode)
         .json(createResponse({
             statusCode: result.statusCode,
