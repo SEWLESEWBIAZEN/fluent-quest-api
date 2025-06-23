@@ -1,6 +1,4 @@
-
 const usersModel = require('../../model/user/user.model');
-const { createResponse } = require('../../utils/responseHelper');
 exports.validateUpdate = async (id, data) => {
     try {
         const getDuplicateEmail = await usersModel.findOne({
@@ -13,33 +11,25 @@ exports.validateUpdate = async (id, data) => {
         });
 
         if (getDuplicateEmail) {
-            return createResponse({
-                statusCode: 400,
+            return ({
                 success: false,
                 message: "This email already exists!",
-                data: null
             });
         }
         if (getDuplicatePhone) {
-            return createResponse({
-                statusCode: 400,
+            return ({
                 success: false,
                 message: "This phone number already exists!",
-                data: null
             });
         }
-        return createResponse({
-            statusCode: 200,
+        return ({
             success: true,
             message: "Validation successful, no errors found.",
-            data: null
         }); // No validation errors
     } catch (error) {
-        return createResponse({
-            statusCode: 500,
+        return ({
             success: false,
             message: error?.message || "Internal Server Error, Validation failed!",
-            data: null
         });
     }
 };

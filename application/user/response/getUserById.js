@@ -2,7 +2,7 @@
 const { createResponse } = require('../../../utils/responseHelper');
 exports.getUserById = async (userId) => {
     try {
-        const user = await usersModel.findById(userId).select('-password -__v -userId'); // Exclude password and __v from the response
+        const user = await usersModel.findById(userId).select(' -__v -userId'); // Exclude userId and __v from the response
         // Check if user exists
         if (!user) {
             return createResponse({ 

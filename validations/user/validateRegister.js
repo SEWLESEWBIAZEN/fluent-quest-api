@@ -15,27 +15,14 @@ exports.validateRegister = async (data) => {
                 message: "Email is required"
             });
         }
-
-        if (!data?.password) {
-            return ({
-                success: false,
-                message: "Password must be at least 5 characters long."
-            });
-        }
+       
 
         if (!data?.username) {
             return ({
                 success: false,
                 message: "User Name is required"
             });
-        }
-
-        if (data?.password !== data?.confirm_password) {
-            return ({
-                success: false,
-                message: "Password and confirmed password doesnot match!"
-            });
-        }
+        }       
 
         const getDuplicateEmail = await usersModel.findOne({
             email: data?.email,
@@ -47,7 +34,21 @@ exports.validateRegister = async (data) => {
                 message: "This email already exists!",
             });
         }
-        return undefined; // No validation errors
+        const getDuplicatePhone = await usersModel.findOne({
+            phoneNumber: data?.phoneNumber,
+        });
+
+        if (getDuplicatePhone) {
+            return ({
+                success: false,
+                message: "This PhoneNumber already exists!",
+            });
+        }
+
+        return ({           
+            success: true,
+            message: "Validation successful"          
+        }); // No validation errors
     } catch (error) {
         return {
             success: false,
