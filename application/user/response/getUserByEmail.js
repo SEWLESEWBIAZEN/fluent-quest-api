@@ -1,16 +1,14 @@
  const usersModel = require('../../../model/user/user.model');
 const { createResponse } = require('../../../utils/responseHelper');
-exports.getUserByEmail = async (userEmail) => {
-     
+exports.getUserByEmail = async (userEmail) => {     
     try {
         const user = await usersModel.findOne({ email: userEmail }).select('-__v -userId'); // Exclude userId and __v from the response
-        // Check if user exists
-       
+        // Check if user exists       
         if (!user) {
             return createResponse({ 
                 statusCode: 404,
                 success: false,
-                message: "No user found!"
+                message: "No user found!!"
             });
         }
         return createResponse({

@@ -19,7 +19,7 @@ exports.adminCheck = async (req, res, next) => {
     {
         const { email } = req.user;
         const adminUser = await userModel.findOne({ email });        
-        if (adminUser && adminUser?.role?.find(r=>r.toLowerCase() ==='admin')) {            
+        if (adminUser && adminUser?.role ==='admin') {            
             next();
         } else {            
             return res.status(403).json(createResponse({statusCode: 403, success: false, message: 'You are Forbidden to access the resource, contact the admin about the issue!', data: null}));
