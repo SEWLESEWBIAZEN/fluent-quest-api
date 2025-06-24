@@ -14,9 +14,9 @@ const usersSchema = new mongoose.Schema(
       required: [true, "Name is Required"]
     },
     role: {
-      type: [String],
+      type: String,
       enum: Object.values(userType),
-      default: [userType.USER]
+      default: userType.USER
     },
 
     email: {

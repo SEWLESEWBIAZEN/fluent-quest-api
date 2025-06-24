@@ -32,8 +32,7 @@ exports.register = async (reqData) => {
             streakDays: streakDays || 0,
             points: points || 0,
             enrolledCourses: enrolledCourses || [],
-        },
-            { new: true, runValidators: true }
+        }
         );
 
         // preparing the payload to return

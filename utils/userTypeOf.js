@@ -1,25 +1,23 @@
 const userType = require('../enums/userType');
-function userTypeOf(types) {
-    const role = [];
-
-    for (const type of types) {
+function userTypeOf(type) {
+    let role ="";   
         switch (type.toLowerCase()) {
             case userType.ADMIN:
-                role.push(userType.ADMIN);
+                role=userType.ADMIN;
                 break;
             case userType.TEACHER:
-                role.push(userType.TEACHER);
+                role=userType.TEACHER;
                 break;
             case userType.STUDENT:
-                role.push(userType.STUDENT);
+                role=userType.STUDENT;
                 break;
             case userType.USER:
-                role.push(userType.USER);
+                role=userType.USER;
                 break;
             default:
                 throw new Error("Invalid User Type: " + type);
         }
-    }
+    
 
     return role;
 }

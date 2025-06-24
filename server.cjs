@@ -32,7 +32,8 @@ const { createResponse } = require('./utils/responseHelper')
 app.use('/api', routes)
 
 // error handling middleware
-app.use((err, req, res, next) => {   
+app.use((err, req, res, next) => { 
+
   res.status(res.statusCode || 500).json(createResponse ({statusCode: res.statusCode || 500, success:res.success || false, message:res.message || err || 'Internal Server Error', data: res.data || null }));
 });
 

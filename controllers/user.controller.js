@@ -2,6 +2,7 @@ const userRegisteration = require('../application/user/request/registerUser');
 const userUpdate = require('../application/user/request/updateUser');
 const getAllUsers = require('../application/user/response/getAllUsers');
 const getUserById = require('../application/user/response/getUserById');
+const getUserByEmail = require('../application/user/response/getUserByEmail');
 const { createResponse } = require('../utils/responseHelper');
 
 exports.getUsers = async (req, res) => {
@@ -18,6 +19,18 @@ exports.getUsers = async (req, res) => {
 
 exports.getUser = async (req, res) => {
     const result = await getUserById.getUserById(req.params.id);
+    return res.status(result.statusCode)
+        .json(createResponse({
+            statusCode: result.statusCode,
+            success: result.success,
+            message: result.message,
+            data: result.data || null
+        }));
+};
+
+exports.getUserByEmail = async (req, res) => {
+   
+    const result = await getUserByEmail.getUserByEmail(req.params.email);
     return res.status(result.statusCode)
         .json(createResponse({
             statusCode: result.statusCode,
