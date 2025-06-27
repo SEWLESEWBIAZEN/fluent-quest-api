@@ -5,7 +5,7 @@ const { createResponse } = require("../../../utils/responseHelper");
 
 exports.register = async (reqData) => {
     // destructure the request data to get the user details
-    const { username, name, role, email, phoneNumber, avatar, streakDays, points, enrolledCourses } = reqData;
+    const { username, name, role, email, phoneNumber, avatar, streakDays=1, points =100, enrolledCourses } = reqData;
 
     // validate all required fields
     // this will validate the user registration request data
@@ -18,7 +18,6 @@ exports.register = async (reqData) => {
             data: null
         }));
     }
-
     try {
         // update the database by creating new user
         // this will create a new user in the database       
@@ -29,8 +28,8 @@ exports.register = async (reqData) => {
             name: name,
             phoneNumber: phoneNumber,
             avatar: avatar || "",
-            streakDays: streakDays || 0,
-            points: points || 0,
+            streakDays: streakDays || 1,
+            points: points || 100,
             enrolledCourses: enrolledCourses || [],
         }
         );
@@ -45,7 +44,6 @@ exports.register = async (reqData) => {
             name: createdUser.name,
             phoneNumber: createdUser.phoneNumber
         };
-
         // return the response with status code 201 and success message
         // this response will be sent back to the client
         return (createResponse({

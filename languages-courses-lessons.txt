@@ -12,7 +12,6 @@ id: object_id,
 name: string,
 email: string(email),
 username: string,
-password: string(hashed),
 phoneNumber: string,
 role: UserType[],
 
@@ -27,6 +26,7 @@ language =
 id:object_id,
 name:string,
 code:string,
+description?:string
 flag:object
 }
 
@@ -54,7 +54,49 @@ title: string,
 content: string,
 type : LessonType,
 duration: decimal(minutes),
-order:integer
+order:integer,
+points:number,
 }
+
+bonus_awards=
+{
+id:string,
+amount:number,
+type:string,
+lessonId?:object(Lesson),
+award_date_time:DateTimeString,
+awarded_user: Object(User)
+}
+
+streaks=
+{
+id:string,
+type:enum(string) i.e weekly | monthly | annually | custom,
+number_of_days: number,
+number_of_hours_per_day: number,
+day_of_week:day[],
+
+}
+
+reviews = 
+{
+
+id:string,
+feedback:string,
+rating: number,
+type: "lesson" | "course" | "learner" | "Instructor",
+object_id:object("lesson" | "course" | "learner" | "Instructor",
+
+}
+
+
+
+
+
+
+
+
+
+
 
 

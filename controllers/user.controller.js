@@ -17,7 +17,7 @@ exports.getUsers = async (req, res) => {
         }));
 };
 
-exports.getUser = async (req, res) => {
+exports.getUser = async (req, res) => {    
     const result = await getUserById.getUserById(req.params.id);
     return res.status(result.statusCode)
         .json(createResponse({
