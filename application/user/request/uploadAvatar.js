@@ -1,5 +1,6 @@
 const { createResponse } = require("../../../utils/responseHelper")
-const {supabase} = require("../../../external-services/supabase")
+const { supabase } = require("../../../external-services/supabase")
+const usersModel = require("../../../model/user/user.model")
 exports.uploadAvatar = async (id, file) => {
     // Check if the file is provided
     if (!file) {
@@ -13,21 +14,31 @@ exports.uploadAvatar = async (id, file) => {
 
     try {
 
-        const fileExt = file.originalname.split('.').pop();
-        const filePath = `fluent-quest-users-avatar/${userId}_${Date.now()}.${fileExt}`;
+        const filePath = `usersavatar/_${Date.now()}-${file.originalname}`;
         // Upload the file to Supabase Storage
-        const { error: uploadError } = await supabase
+        const { data, error } = await supabase
             .storage
-            .from('fluent-quest-users-avatar') // your bucket name
-            .upload(filePath, file.buffer, {
+            .from('usersavatar') // your bucket name
+            .upload(`${filePath}`, file.buffer, {
                 contentType: file.mimetype,
-                upsert: true,
+                upsert: true
             });
         // Get the public URL of the uploaded file
+
+        if (error) {
+            console.error("Error uploading file:", error);
+            return createResponse({
+                statusCode: 500,
+                success: false,
+                message: error.message || "Failed to upload file",
+                data: null
+            });
+        }
+
         const { data: publicUrlData } = supabase
             .storage
-            .from('fluent-quest-users-avatar')
-            .getPublicUrl(filePath);
+            .from('usersavatar')
+            .getPublicUrl(data.path);
 
         // Update the user's avatar URL in the database
         const updatedUser = await usersModel.findByIdAndUpdate(id, { avatar: publicUrlData.publicUrl }, { new: true });
@@ -45,7 +56,7 @@ exports.uploadAvatar = async (id, file) => {
             statusCode: 200,
             success: true,
             message: "Avatar uploaded successfully",
-            data: { avatarUrl: publicUrl }
+            data: updatedUser
         });
 
     } catch (error) {

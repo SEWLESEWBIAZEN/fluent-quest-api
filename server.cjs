@@ -1,3 +1,5 @@
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 const express = require('express')
 const dotenv = require('dotenv')
 const bodyParser = require('body-parser')
@@ -5,8 +7,6 @@ const morgan = require('morgan')
 const connectDB = require('./utils/connectDB')
 const corsMiddleware = require('./config/corsConfig');
 const { createResponse } = require('./utils/responseHelper')
-const multer = require('multer');
-
 
 
 dotenv.config()
@@ -18,9 +18,6 @@ const host = process.env.HOSTNAME || 'localhost'
 const app = express();
 
 connectDB();
-
-const storage = multer.memoryStorage();
-const upload = multer({ storage });
 
 app.use(corsMiddleware);
 app.use(bodyParser.json());
