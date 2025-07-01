@@ -1,4 +1,4 @@
-const admin = require('../firebase/firebase');
+const admin = require('../external-services/firebase');
 const userModel = require('../model/user/user.model');
 const { createResponse } = require('../utils/responseHelper');
 

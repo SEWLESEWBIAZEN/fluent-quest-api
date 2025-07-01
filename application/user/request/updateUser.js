@@ -6,7 +6,7 @@ const { createResponse } = require("../../../utils/responseHelper");
 exports.update = async (id, reqData) => {
     
     // destructure the request data to get the user details
-    const {username, name, role, email, phoneNumber } = reqData;
+    const {username, name, role, email, phoneNumber,verified } = reqData;
 
     // // validate all required fields
     // this will validate the user update request data
@@ -26,11 +26,12 @@ exports.update = async (id, reqData) => {
         // this will update the user details in the database
         // the `new: true` option returns the updated document
         const updatedUser = await usersModel.findByIdAndUpdate(id, {
-            username: username,
-            role: userTypeOf(role),
-            email: email,
-            name: name,
-            phoneNumber: phoneNumber
+            username: username && username,
+            role: role && userTypeOf(role),
+            email: email && email,
+            name: name && name,
+            phoneNumber: phoneNumber && phoneNumber,
+            verified: verified && verified
         },
             { new: true, runValidators: true }
         );
@@ -43,7 +44,8 @@ exports.update = async (id, reqData) => {
             email: updatedUser.email,
             role: updatedUser.role,
             name: updatedUser.name,
-            phoneNumber: updatedUser.phoneNumber
+            phoneNumber: updatedUser.phoneNumber,
+            verified: updatedUser.verified
         };
 
         // if the user is not found, return 404 error
@@ -68,6 +70,7 @@ exports.update = async (id, reqData) => {
 
         
     } catch (error) {
+        
         // if there is an error, return 500 error
         // this error will be sent back to the client
         return (createResponse({

@@ -1,5 +1,6 @@
 const userRegisteration = require('../application/user/request/registerUser');
 const userUpdate = require('../application/user/request/updateUser');
+const uploadAvatar = require('../application/user/request/uploadAvatar');
 const getAllUsers = require('../application/user/response/getAllUsers');
 const getUserById = require('../application/user/response/getUserById');
 const getUserByEmail = require('../application/user/response/getUserByEmail');
@@ -54,8 +55,19 @@ exports.registerUser = async (req, res) => {
 };
 
 
-exports.updateUser = async (req, res) => {
+exports.updateUser = async (req, res) => {    
     const result = await userUpdate.update(req.params.id, req.body);
+    return res.status(result.statusCode)
+        .json(createResponse({
+            statusCode: result.statusCode,
+            success: result.success,
+            message: result.message,
+            data: result.data || null
+        }));
+}
+
+exports.uploadAvatar = async (req, res) => {
+const result = await uploadAvatar.uploadAvatar(req.params.id, req.file);
     return res.status(result.statusCode)
         .json(createResponse({
             statusCode: result.statusCode,

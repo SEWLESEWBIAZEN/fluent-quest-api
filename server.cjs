@@ -1,39 +1,40 @@
 const express = require('express')
 const dotenv = require('dotenv')
-const cors = require('cors')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const connectDB = require('./utils/connectDB')
+const corsMiddleware = require('./config/corsConfig');
+const { createResponse } = require('./utils/responseHelper')
+const multer = require('multer');
+
+
 
 dotenv.config()
-
 // port the app listen to
 const port = process.env.PORT || 8000
 const host = process.env.HOSTNAME || 'localhost'
 
 // app
-const app = express()
+const app = express();
 
-// connect to the database
-connectDB()
+connectDB();
 
-//middleware
-app.use(cors())
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(morgan('dev'))
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
-// static files
+app.use(corsMiddleware);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(morgan('dev'));
 app.use(express.static('public'))
 
 // routes
 const routes = require('./routes')
-const { createResponse } = require('./utils/responseHelper')
 app.use('/api', routes)
 
 // error handling middleware
 app.use((err, req, res, next) => { 
-
+console.log(err)
   res.status(res.statusCode || 500).json(createResponse ({statusCode: res.statusCode || 500, success:res.success || false, message:res.message || err || 'Internal Server Error', data: res.data || null }));
 });
 
