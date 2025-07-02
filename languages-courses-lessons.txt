@@ -30,6 +30,14 @@ description?:string
 flag:object
 }
 
+level={
+    id:string,
+    name:string,
+    code:string,
+    category:string,
+    description?:string
+}
+
 course =
 {
 id: object_id,

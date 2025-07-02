@@ -3,6 +3,8 @@ const languageController = require("../controllers/language.controller");
 
 const languageRoutes = express.Router();
 
+languageRoutes.get("/getAll", languageController.getLanguages);
+languageRoutes.get("/getById/:id", languageController.getLanguageById);
 languageRoutes.post("/create", languageController.create);
 
 module.exports = languageRoutes;
