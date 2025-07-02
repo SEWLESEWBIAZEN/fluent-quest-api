@@ -1,4 +1,4 @@
- const usersModel = require('../../../model/user/user.model');
+ const usersModel = require('../../../model/user.model');
 const { createResponse } = require('../../../utils/responseHelper');
 exports.getUserByEmail = async (userEmail) => {     
     try {

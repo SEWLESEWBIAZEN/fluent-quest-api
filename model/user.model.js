@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const userType = require('../../enums/userType')
-const Counter = require('../common/counter')
+const userType = require('../enums/userType')
+const Counter = require('./common/counter')
 
 const usersSchema = new mongoose.Schema(
   {

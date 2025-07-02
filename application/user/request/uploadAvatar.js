@@ -1,6 +1,6 @@
 const { createResponse } = require("../../../utils/responseHelper")
 const { supabase } = require("../../../external-services/supabase")
-const usersModel = require("../../../model/user/user.model")
+const usersModel = require("../../../model/user.model")
 exports.uploadAvatar = async (id, file) => {
     // Check if the file is provided
     if (!file) {

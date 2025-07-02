@@ -1,4 +1,4 @@
-const languagesModel = require('../../../model/user/language.model');
+const languagesModel = require('../../../model/language.model');
 const validateCreate= require('../../../validations/language/validateCreate');
 const { createResponse } = require("../../../utils/responseHelper");
 

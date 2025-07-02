@@ -1,5 +1,5 @@
 const admin = require('../external-services/firebase');
-const userModel = require('../model/user/user.model');
+const userModel = require('../model/user.model');
 const { createResponse } = require('../utils/responseHelper');
 
 exports.authCheck = async (req, res, next) => {

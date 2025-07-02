@@ -1,5 +1,5 @@
 
-const usersModel = require('../../model/user/user.model');
+const usersModel = require('../../model/user.model');
 exports.validateRegister = async (data) => {
     try {
         if (!data?.name) {

@@ -1,4 +1,4 @@
- const languagesModel = require('../../../model/user/language.model');
+ const languagesModel = require('../../../model/language.model');
  const { createResponse } = require('../../../utils/responseHelper');
 exports.getAll =async()=>{   
     try {

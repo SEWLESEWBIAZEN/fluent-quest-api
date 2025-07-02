@@ -1,4 +1,4 @@
-const usersModel = require('../../../model/user/user.model');
+const usersModel = require('../../../model/user.model');
 const { userTypeOf } = require("../../../utils/userTypeOf");
 const validateUserUpdate = require('../../../validations/user/validateUpdate');
 const { createResponse } = require("../../../utils/responseHelper");

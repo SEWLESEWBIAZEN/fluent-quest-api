@@ -1,4 +1,4 @@
-const usersModel = require('../../model/user/user.model');
+const usersModel = require('../../model/user.model');
 exports.validateUpdate = async (id, data) => {
     try {
         const getDuplicateEmail = await usersModel.findOne({

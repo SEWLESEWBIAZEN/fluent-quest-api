@@ -1,5 +1,5 @@
 
-const languagesModel = require('../../model/user/language.model');
+const languagesModel = require('../../model/language.model');
 exports.validateCreate = async (data) => {
     try {
         if (!data?.name) {
