@@ -13,8 +13,7 @@ exports.uploadAvatar = async (id, file) => {
     }
 
     try {
-
-        const filePath = `usersavatar/_${Date.now()}-${file.originalname}`;
+        const filePath = `usersavatar/${id}_${Date.now()}-${file.originalname}`;
         // Upload the file to Supabase Storage
         const { data, error } = await supabase
             .storage

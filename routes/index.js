@@ -1,5 +1,6 @@
 const express = require('express');
-const userRoutes = require('./user/user.routes');
+const userRoutes = require('./user.routes');
+const languageRoutes = require('./language.routes');
 
 const router = express.Router();
 
@@ -12,7 +13,6 @@ const { authCheck, adminCheck } = require('../middleware/authMiddleware');
 
 // API routes
 router.use('/users', userRoutes);
-
-
+router.use('/languages', languageRoutes);
 
 module.exports = router;

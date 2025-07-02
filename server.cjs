@@ -1,5 +1,3 @@
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-
 const express = require('express')
 const dotenv = require('dotenv')
 const bodyParser = require('body-parser')
@@ -7,7 +5,8 @@ const morgan = require('morgan')
 const connectDB = require('./utils/connectDB')
 const corsMiddleware = require('./config/corsConfig');
 const { createResponse } = require('./utils/responseHelper')
-
+// const fs = require('fs')
+// const https = require('https')
 
 dotenv.config()
 // port the app listen to
@@ -35,6 +34,14 @@ console.log(err)
   res.status(res.statusCode || 500).json(createResponse ({statusCode: res.statusCode || 500, success:res.success || false, message:res.message || err || 'Internal Server Error', data: res.data || null }));
 });
 
+// const server = https.createServer({
+//   key: fs.readFileSync('../../certs/key.pem'),
+//   cert: fs.readFileSync('../../certs/cert.pem')
+// }, app);
+
+// server.listen(port, host, () => {
+//   console.log(`Server running at https://${host}:${port}`);
+// });
 app.listen(port, host, () => {
   console.log(`Server running at http://${host}:${port}`);
 });
