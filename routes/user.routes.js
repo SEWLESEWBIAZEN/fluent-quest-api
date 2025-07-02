@@ -13,6 +13,7 @@ userRoutes.get("/user-by-id/:id", userController.getUser);
 userRoutes.get("/user-by-email/:email", userController.getUserByEmail);
 userRoutes.put("/user/update/:id", userController.updateUser);
 userRoutes.post("/user/upload-avatar/:id",upload.single('file'), userController.uploadAvatar);
+userRoutes.delete(`/user/delete`, userController.deleteUser);
 
 
 module.exports = userRoutes;

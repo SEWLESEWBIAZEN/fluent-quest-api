@@ -3,13 +3,15 @@ const userModel = require('../model/user.model');
 const { createResponse } = require('../utils/responseHelper');
 
 exports.authCheck = async (req, res, next) => {
+    
     try
     {
-        const firebaseUser = await admin.auth().verifyIdToken(req.headers.authtoken);      
+        const firebaseUser = await admin.auth().verifyIdToken(req.headers.authtoken);
         req.user = firebaseUser;
         next();
     }
-    catch (error) {        
+    catch (error) {   
+        console.log(error)     
         return res.status(401).json(createResponse({statusCode: 401, success: false, message: 'Unauthorized', data: null}));
     }
 }

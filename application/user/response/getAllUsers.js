@@ -2,7 +2,7 @@
  const { createResponse } = require('../../../utils/responseHelper');
 exports.getAllUsers =async()=>{   
     try {
-        const users = await usersModel.find({}).select(' -__v -userId'); // Exclude userId and __v from the response
+        const users = await usersModel.find({}).select(' -__v'); // Exclude userId and __v from the response
         if (!users || users.length === 0) {            
             return createResponse( {
                 statusCode: 404,
