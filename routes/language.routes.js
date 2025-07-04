@@ -8,5 +8,6 @@ languageRoutes.get("/getById/:id", languageController.getById);
 languageRoutes.get("/getByCode/:code", languageController.getByCode);
 languageRoutes.post("/create", languageController.create);
 languageRoutes.put("/update/:id", languageController.update);
+languageRoutes.delete("/delete/:id", languageController.delete);
 
 module.exports = languageRoutes;

@@ -108,7 +108,7 @@ planning
         - get language by id api ✅
         - get language by code api ✅
         - update language api ✅
-        - delete language api
+        - delete language api ✅
         - test cases for those apis (Optional) ❌
 
 
