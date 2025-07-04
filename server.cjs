@@ -23,6 +23,7 @@ const app = express();
 
 connectDB();
 
+
 app.use(corsMiddleware);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

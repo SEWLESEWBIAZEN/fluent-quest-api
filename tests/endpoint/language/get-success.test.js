@@ -27,6 +27,7 @@ describe("Should Get", () => {
         expect(response.body).toHaveProperty('success', true);
         expect(response.body).toHaveProperty('message', 'Language retrieved successfully');
         expect(response.body.data).toHaveProperty('_id', languageId);
+        
     }, 15000);
 
     //get language by code
