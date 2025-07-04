@@ -9,10 +9,11 @@ const morgan = require('morgan')
 const connectDB = require('./utils/connectDB')
 const corsMiddleware = require('./config/corsConfig');
 const { createResponse } = require('./utils/responseHelper')
-// const fs = require('fs')
-// const https = require('https')
+const { config } =require( 'dotenv');
 
-dotenv.config()
+const envPath = process.env.NODE_ENV === 'test' ? '.env.test' : '.env';
+config({ path: envPath });
+
 // port the app listen to
 const port = process.env.PORT || 8000
 const host = process.env.HOSTNAME || 'localhost'
@@ -50,4 +51,8 @@ app.listen(port, host, () => {
   console.log(`Server running at http://${host}:${port}`);
 });
 
+
+if (process.env.NODE_ENV === 'test') {
+   module.exports = { app };
+}
 
