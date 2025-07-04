@@ -7,7 +7,8 @@ exports.getAll =async()=>{
             return createResponse({
                 statusCode: 404,
                 success: false,
-                message: "No languages found!"
+                message: "No languages found!",
+                data: []
             });
         }
 

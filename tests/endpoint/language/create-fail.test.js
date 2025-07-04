@@ -2,9 +2,9 @@ import { it, expect, describe } from 'vitest'
 import request from 'supertest'
 import { app } from '../../../server.cjs'
 
-describe("Create Language", () => {
+describe("Should Not", () => {
     const token = process.env.TEST_AUTH_TOKEN;
-    it("should not create a language with existing code", async () => {
+    it("create a language with existing code", async () => {
         const response = await request(app)
             .post("/api/languages/create")
             .set("authtoken", token)
@@ -21,7 +21,7 @@ describe("Create Language", () => {
     }, 15000);
 
     
-    it("should not create a language with no name", async () => {
+    it("create a language with no name", async () => {
         const response = await request(app)
             .post("/api/languages/create")
             .set("authtoken", token)
@@ -35,7 +35,7 @@ describe("Create Language", () => {
         expect(response.body.message).toBe('Language Name is required');
     }, 15000);
 
-    it("should not create a language with no code", async () => {
+    it("create a language with no code", async () => {
         const response = await request(app)
             .post("/api/languages/create")
             .set("authtoken", token)
@@ -49,7 +49,7 @@ describe("Create Language", () => {
         expect(response.body.message).toBe('Language Code is required');
     }, 15000);
 
-    it("should not create a language with no flag", async () => {
+    it("create a language with no flag", async () => {
         const response = await request(app)
             .post("/api/languages/create")
             .set("authtoken", token)
@@ -63,7 +63,7 @@ describe("Create Language", () => {
         expect(response.body.message).toBe('Language Flag is required');
     }, 15000);
 
-    it("should not create a language with no auth token", async () => {
+    it("create a language with no auth token", async () => {
         const response = await request(app)
             .post("/api/languages/create")
             .send({

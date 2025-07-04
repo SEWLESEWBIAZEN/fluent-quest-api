@@ -2,9 +2,9 @@ import { it, expect, describe } from 'vitest'
 import request from 'supertest'
 import { app } from '../../../server.cjs'
 
-describe("Create Language", () => {
+describe("Should Create", () => {
     const token = process.env.TEST_AUTH_TOKEN;
-    it("should create a language", async () => {
+    it("a language with all fields", async () => {
         const response = await request(app)
             .post("/api/languages/create")
             .set("authtoken", token)
@@ -21,8 +21,8 @@ describe("Create Language", () => {
         expect(response.body.message).toBe('Language registered successfully');
     }, 15000);
 
-    
-    it("should create a language with no description", async () => {
+
+    it("a language with no description(optional)", async () => {
         const response = await request(app)
             .post("/api/languages/create")
             .set("authtoken", token)

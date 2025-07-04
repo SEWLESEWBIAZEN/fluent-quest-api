@@ -15,7 +15,7 @@ exports.getLanguages = async (req, res) => {
             statusCode: result.statusCode,
             success: result.success,
             message: result.message,
-            data: result.data || null
+            data: result?.data || []
         }));
 };
 
