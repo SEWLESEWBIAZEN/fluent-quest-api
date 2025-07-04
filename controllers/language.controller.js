@@ -1,6 +1,7 @@
 const createLanguage = require('../application/language/request/createLanguage');
 const getAllLanguages = require('../application/language/response/getAll');
 const getLanguage = require('../application/language/response/getById')
+const updateLanguage = require('../application/language/request/updateLanguage');
 const {createResponse} = require('../utils/responseHelper')
 
 
@@ -36,6 +37,17 @@ exports.getLanguages = async (req, res) => {
 
 exports.create = async (req, res) => {
     const result = await createLanguage.create(req.body);
+    return res.status(result.statusCode)
+        .json(createResponse({
+            statusCode: result.statusCode,
+            success: result.success,
+            message: result.message,
+            data: result.data || null
+        }));
+};
+
+exports.update = async (req, res) => {
+    const result = await updateLanguage.update(req.body, req.params.id);
     return res.status(result.statusCode)
         .json(createResponse({
             statusCode: result.statusCode,

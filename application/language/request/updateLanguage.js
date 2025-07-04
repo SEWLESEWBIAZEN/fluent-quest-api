@@ -1,31 +1,33 @@
 const languagesModel = require('../../../model/language.model');
-const validateCreate= require('../../../validations/language/validateCreate');
+const validateUpdate = require('../../../validations/language/validateUpdate');
 const { createResponse } = require("../../../utils/responseHelper");
 
-exports.create = async (reqData) => {
+exports.update = async (reqData, id) => {
     // destructure the request data to get the user details
     const { name, code, flag, description } = reqData;
 
     // validate all required fields
     // this will validate the user registration request data
-    const validationResult = await validateCreate.validate(reqData);
+    const validationResult = await validateUpdate.validate(reqData, id);
     if (validationResult && !validationResult?.success) {
         return (createResponse({
             statusCode: 400,
             success: false,
-            message: validationResult?.message,
+            message: validationResult?.message || "Invalid data sent from user",
             data: null
         }));
     }
     try {
         // update the database by creating new user
         // this will create a new user in the database       
-        const createdLanguage = await languagesModel.create({
+        const createdLanguage = await languagesModel.findOneAndUpdate({
+            _id: id
+        }, {
             name: name,
             code: code,
             flag: flag,
             description: description
-        });
+        }, { new: true, runValidators: true });
 
         // preparing the payload to return
         // this payload will be used to send the response back to the client
@@ -35,13 +37,13 @@ exports.create = async (reqData) => {
             flag: createdLanguage.flag,
             description: createdLanguage.description
         };
-        
+
         // return the response with status code 201 and success message
         // this response will be sent back to the client
         return (createResponse({
-            statusCode: 201,
+            statusCode: 200,
             success: true,
-            message: "Language registered successfully",
+            message: "Language updated successfully",
             data: payload
         }));
     } catch (error) {

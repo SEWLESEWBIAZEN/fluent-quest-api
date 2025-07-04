@@ -44,7 +44,7 @@ id: object_id,
 title: string,
 description: string,
 language_id: foreign_key(language),
-level: LanguageLevel,
+level: foreign_key(level),
 teacherId: foreign_key(user),
 imageUrl: string(file path),
 duration: decimal(in minutes),
@@ -93,9 +93,24 @@ id:string,
 feedback:string,
 rating: number,
 type: "lesson" | "course" | "learner" | "Instructor",
-object_id:object("lesson" | "course" | "learner" | "Instructor",
+object_id:object( "lesson" | "course" | "learner" | "Instructor",
 
 }
+
+
+
+planning
+    date: 4th july 2025
+    languages
+        - language model - ✅
+        - create language api ✅
+        - get all languages api ✅
+        - get language by id api ✅
+        - get language by code api
+        - update language api
+        - delete language api
+        - test cases for those apis (Optional) ❌
+
 
 
 

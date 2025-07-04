@@ -1,38 +1,27 @@
 
 const languagesModel = require('../../model/language.model');
-exports.validate = async (data) => {
+exports.validate = async (data, id) => {
     try {
-        if (!data?.name) {
+        if(!id){
             return ({
                 success: false,
-                message: "Language Name is required"
+                message: "Language ID is required"
+            });
+        }
+        const language = await languagesModel.findById(id);
+        if (!language) {
+            return ({
+                success: false,
+                message: "Language not found"
             });
         }
 
-        if (!data?.code) {
+        if (!data?.name && !data?.code && !data?.flag && !data?.description) {
             return ({
                 success: false,
-                message: "Language Code is required"
+                message: "No fields provided for update, what do you wants to update?"
             });
-        }
-
-        if (!data?.flag) {
-            return ({
-                success: false,
-                message: "Language Flag is required"
-            });
-        }
-
-        const getDuplicateCode = await languagesModel.findOne({
-            code: data?.code,
-        });
-
-        if (getDuplicateCode) {
-            return ({
-                success: false,
-                message: "This language code already exists!",
-            });
-        }
+        }       
 
         return ({
             success: true,
