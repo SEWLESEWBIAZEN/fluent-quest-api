@@ -10,8 +10,12 @@ exports.authCheck = async (req, res, next) => {
         req.user = firebaseUser;
         next();
     }
-    catch (error) {   
-        console.log(error)     
+    catch (error) { 
+        if(error.code === 'auth/argument-error') 
+            {
+                return res.status(400).json(createResponse({statusCode: 400, success: false, message: 'Invalid authentication token', data: null}));
+        }       
+                
         return res.status(401).json(createResponse({statusCode: 401, success: false, message: 'Unauthorized', data: null}));
     }
 }
