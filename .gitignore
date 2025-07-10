@@ -1,6 +1,6 @@
 # Node modules
 node_modules/
-config/
+fluent-quest.Api/config/firebase-private-key.json
 
 # Logs
 logs/

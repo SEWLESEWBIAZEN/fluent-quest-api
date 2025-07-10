@@ -2,7 +2,7 @@
   "name": "fluent-quest-api",
   "version": "1.0.0",
   "main": "server.cjs",
-  "scripts": {   
+  "scripts": {
     "dev": "nodemon server.cjs",
     "start": "node server.cjs",
     "test": "vitest"
@@ -19,6 +19,7 @@
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "express-jwt": "^8.5.1",
+    "express-rate-limit": "^7.5.1",
     "firebase": "^11.9.1",
     "firebase-admin": "^13.4.0",
     "jsonwebtoken": "^9.0.2",

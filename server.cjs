@@ -3,10 +3,12 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const express = require('express');
-const expressLoader = require('./fluent-quest.Services/loaders/expressLoader');
+const injectExpress = require('./fluent-quest.Services/dependency-manager/inject-express');
+const injectRateLimiter = require('./fluent-quest.Services/dependency-manager/inject-rate-limiter');
 
 const app = express();
-expressLoader(app);
+injectExpress(app);
+injectRateLimiter(app);
 
 // Only start server if not in test
 if (process.env.NODE_ENV !== 'test') {

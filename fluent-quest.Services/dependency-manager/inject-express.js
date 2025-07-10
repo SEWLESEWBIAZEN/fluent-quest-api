@@ -10,6 +10,8 @@ const dotenv = require('dotenv');
 const envPath = process.env.NODE_ENV === 'test' ? '.env.test' : '.env';
 dotenv.config({ path: envPath });
 
+
+
 module.exports =async (app) => {
     app.use(corsMiddleware);
     app.use(bodyParser.json());
