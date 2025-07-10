@@ -1,8 +1,12 @@
 const cors = require('cors');
 
 const allowedOrigins = process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim())
-  : [];
+  ? process.env.ALLOWED_ORIGINS
+  : [
+  "http://localhost:8081",
+  "http://localhost:8080",
+  "https://m8blqbdj-8080.euw.devtunnels.ms"
+];
 
 const corsOptions = {
   origin: function (origin, callback) {
