@@ -1,5 +1,5 @@
-import dotenv from 'dotenv'
-import { createClient } from '@supabase/supabase-js';
+const dotenv = require('dotenv')
+const { createClient } = require('@supabase/supabase-js');
 
 const envPath = process.env.NODE_ENV === 'test' ? '.env.test' : '.env';
 dotenv.config({ path: envPath });
