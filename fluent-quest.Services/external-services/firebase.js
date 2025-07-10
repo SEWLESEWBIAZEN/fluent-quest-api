@@ -1,6 +1,9 @@
 var admin = require("firebase-admin");
 
-var serviceAccount = require("../../fluent-quest.Api/config/firebase-private-key.json");
+// var serviceAccount = require("../../fluent-quest.Api/config/firebase-private-key.json");
+
+// for prod
+var serviceAccount = require("./firebase-private-key.json");
 // {
 //   "type": process.env.FIREBASE_TYPE,
 //   "project_id": process.env.FIREBASE_PROJECT_ID,
