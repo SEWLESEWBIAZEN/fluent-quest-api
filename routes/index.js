@@ -1,6 +1,7 @@
 const express = require('express');
 const userRoutes = require('./user.routes');
 const languageRoutes = require('./language.routes');
+const languageLevelRoutes = require('./languageLevel.routes')
 
 const router = express.Router();
 
@@ -14,5 +15,6 @@ router.use(authCheck); // Apply authCheck middleware to all routes
 // API routes
 router.use('/users', userRoutes);
 router.use('/languages', languageRoutes);
+router.use('/languageLevels', languageLevelRoutes);
 
 module.exports = router;

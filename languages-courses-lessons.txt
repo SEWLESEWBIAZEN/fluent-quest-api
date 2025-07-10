@@ -109,7 +109,18 @@ planning
         - get language by code api ✅
         - update language api ✅
         - delete language api ✅
-        - test cases for those apis (Optional) ❌
+        - test cases for these apis (Optional) ✅
+
+    date: 10th july 2025
+    courses:
+        - course model
+        - create course api
+        - update course api
+        - get all courses api
+        - get course by id api
+        - get courses by language and level api
+        - delete course api
+        - test cases for these apis (Optional)
 
 
 

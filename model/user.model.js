@@ -43,7 +43,7 @@ const usersSchema = new mongoose.Schema(
     enrolledCourses: {
       type: [mongoose.Schema.Types.ObjectId],
       required: false,
-      ref: 'Course',
+      ref: 'courses',
       default: [],
     },
     verified: {
