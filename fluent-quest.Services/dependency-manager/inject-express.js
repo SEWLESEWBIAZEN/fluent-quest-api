@@ -12,13 +12,18 @@ dotenv.config({ path: envPath });
 
 
 
-module.exports =async (app) => {
+module.exports = async (app) => {
+    app.use(function (request, response, next) {
+        response.header("Access-Control-Allow-Origin", "*");
+        response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        next();
+    });
     app.use(corsMiddleware);
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(morgan('dev'));
     app.use(express.static('public'));
-   await connectDB();
+    await connectDB();
     app.use('/api', routes);
     // Global error handler
     app.use((err, req, res, next) => {

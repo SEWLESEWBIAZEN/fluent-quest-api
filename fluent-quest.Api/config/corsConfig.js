@@ -1,8 +1,7 @@
 const cors = require('cors');
-const allowedOrigins = ["http://localhost:8080"];
-// process.env.ALLOWED_ORIGINS
-//   ? process.env.ALLOWED_ORIGINS.split(',').map(origin => origin.trim())
-//   : 
+const allowedOrigins = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(',').map(origin => origin.trim())
+  : [];
 
 const corsOptions = {
   origin: function (origin, callback) {
