@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const corsMiddleware = require('../../fluent-quest.Api/config/corsConfig');
+// const corsMiddleware = require('../../fluent-quest.Api/config/corsConfig');
 const routes = require('../../fluent-quest.Api/routes');
 const { createResponse } = require('../utils/responseHelper');
 const connectDB = require('../utils/connectDB');
@@ -13,7 +13,7 @@ dotenv.config({ path: envPath });
 
 
 module.exports = async (app) => {
-    app.use(corsMiddleware);
+    // app.use(corsMiddleware);
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(morgan('dev'));
