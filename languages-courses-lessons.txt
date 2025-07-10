@@ -113,9 +113,9 @@ planning
 
     date: 10th july 2025
     courses:
-        - course model
-        - create course api
-        - update course api
+        - course model ✅
+        - create course api ✅
+        - update course api ✅
         - get all courses api
         - get course by id api
         - get courses by language and level api

@@ -3,7 +3,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const express = require('express');
-const expressLoader = require('./loaders/expressLoader');
+const expressLoader = require('./fluent-quest.Services/loaders/expressLoader');
 
 const app = express();
 expressLoader(app);
