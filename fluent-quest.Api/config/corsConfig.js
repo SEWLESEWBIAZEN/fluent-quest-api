@@ -5,6 +5,7 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS
   : [
   "http://localhost:8081",
   "http://localhost:8080",
+  "http://172.20.76.139:8080",
   "https://m8blqbdj-8080.euw.devtunnels.ms"
 ];
 
