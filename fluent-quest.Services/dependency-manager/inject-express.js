@@ -13,11 +13,6 @@ dotenv.config({ path: envPath });
 
 
 module.exports = async (app) => {
-    app.use(function (request, response, next) {
-        response.header("Access-Control-Allow-Origin", "*");
-        response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        next();
-    });
     app.use(corsMiddleware);
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
