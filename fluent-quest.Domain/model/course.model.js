@@ -3,8 +3,7 @@ const coursesSchema = new mongoose.Schema(
   {
     code:{
       type:String,
-      required: [true, "Code is required!"],
-      unique: true
+      required: [true, "Code is required!"],      
     },
     title: {
       type: String,

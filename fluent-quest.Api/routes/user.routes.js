@@ -3,7 +3,6 @@ const {upload} = require('../middleware/multerMiddleware')
 
 // controller imports
 const userController = require("../controllers/user.controller");
-
 const userRoutes = express.Router();
 
 // Routes...

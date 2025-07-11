@@ -58,7 +58,7 @@ exports.validate = async (data) => {
         if (getDuplicateCode) {
             return ({
                 success: false,
-                message: "This language-level code already exists!",
+                message: `This course code:${data?.code} already exists!`,
             });
         }
 
