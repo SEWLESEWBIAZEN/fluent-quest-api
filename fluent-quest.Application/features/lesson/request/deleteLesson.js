@@ -1,27 +1,27 @@
-const coursesModel = require("../../../../fluent-quest.Domain/model/course.model")
+const lessonsModel = require("../../../../fluent-quest.Domain/model/lesson.model")
 const {createResponse} = require("../../../../fluent-quest.Services/utils/responseHelper")
 
-exports.delete = async (courseId) => {
+exports.delete = async (lessonId) => {
     try {
-        const deletedCourse = await coursesModel.findByIdAndDelete(courseId);
-        if (!deletedCourse) {
+        const deletedLesson = await lessonsModel.findByIdAndDelete(lessonId);
+        if (!deletedLesson) {
             return createResponse({
                 statusCode: 404,
                 success: false,
-                message: "Course not found!"
+                message: "Lesson not found!"
             });
         }
         return createResponse({
             statusCode: 200,
             success: true,
-            message: "Course deleted successfully",
-            data: deletedCourse
+            message: "Lesson deleted successfully",
+            data: deletedLesson
         });
     } catch (error) {       
         return createResponse({
             statusCode: 500,
             success: false,
-            message: error.message || "Internal Server Error, Failed to delete course!"
+            message: error.message || "Internal Server Error, Failed to delete lesson!"
         });
     }
 }

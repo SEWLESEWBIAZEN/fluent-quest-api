@@ -18,6 +18,8 @@ exports.validate = async (data, id) => {
             });
         }
 
+       
+
         if (!data?.title && !data?.code && !data?.language_id && !data?.description && !data?.language_level && !data?.teacherId && !data?.duration) {
             return ({
                 success: false,
