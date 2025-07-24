@@ -116,11 +116,11 @@ planning
         - course model ✅
         - create course api ✅
         - update course api ✅
-        - get all courses api
-        - get course by id api
-        - get courses by language and level api
-        - delete course api
-        - test cases for these apis (Optional)
+        - get all courses api ✅
+        - get course by id api ✅
+        - get courses by language and level api ✅
+        - delete course api ✅
+        - test cases for these apis (Optional) 
 
 
 

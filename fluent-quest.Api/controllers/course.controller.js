@@ -4,10 +4,7 @@ const deleteCourse =require('../../fluent-quest.Application/features/course/requ
 const getAllCourses = require('../../fluent-quest.Application/features/course/response/getAll');
 const getCourseByInstructor = require('../../fluent-quest.Application/features/course/response/getCourseByInstructor');
 const {createResponse} =require('../../fluent-quest.Services/utils/responseHelper')
-
-
-
-
+const getCourseById = require('../../fluent-quest.Application/features/course/response/getCourseById');
 
 exports.getAll = async (req, res) => {
     const result = await getAllCourses.getAll();
@@ -22,6 +19,17 @@ exports.getAll = async (req, res) => {
 exports.getCoursesByInstructor = async (req, res) => {
     const { teacherId } = req.params;
     const result = await getCourseByInstructor.getCourses(teacherId);
+    return res.status(result.statusCode)
+        .json(createResponse({
+            statusCode: result.statusCode,
+            success: result.success,
+            message: result.message,
+            data: result.data || null
+        }));
+};
+exports.getCourseById = async (req, res) => {
+    const { courseId } = req.params;
+    const result = await getCourseById.getCourseById(courseId);
     return res.status(result.statusCode)
         .json(createResponse({
             statusCode: result.statusCode,
