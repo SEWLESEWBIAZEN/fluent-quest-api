@@ -1,5 +1,6 @@
 const createCourse =require('../../fluent-quest.Application/features/course/request/createCourse')
 const updateCourse =require('../../fluent-quest.Application/features/course/request/updateCourse')
+const deleteCourse =require('../../fluent-quest.Application/features/course/request/deleteCourse')
 const getAllCourses = require('../../fluent-quest.Application/features/course/response/getAll');
 const getCourseByInstructor = require('../../fluent-quest.Application/features/course/response/getCourseByInstructor');
 const {createResponse} =require('../../fluent-quest.Services/utils/responseHelper')
@@ -44,6 +45,16 @@ exports.create = async (req, res) => {
 
 exports.update = async (req, res) => {
     const result = await updateCourse.update(req.body, req.params.id);
+    return res.status(result.statusCode)
+        .json(createResponse({
+            statusCode: result.statusCode,
+            success: result.success,
+            message: result.message,
+            data: result.data || null
+        }));
+};
+exports.delete = async (req, res) => {
+    const result = await deleteCourse.delete(req.params.id);
     return res.status(result.statusCode)
         .json(createResponse({
             statusCode: result.statusCode,
