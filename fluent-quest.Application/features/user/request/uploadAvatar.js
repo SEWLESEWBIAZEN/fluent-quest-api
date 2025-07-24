@@ -1,6 +1,6 @@
 const { createResponse } = require("../../../../fluent-quest.Services/utils/responseHelper")
 const { supabase } = require("../../../../fluent-quest.Services/external-services/supabase")
-const  usersModel = require( '../../../../fluent-quest.Domain/model/user.model')
+const usersModel = require('../../../../fluent-quest.Domain/model/user.model')
 exports.uploadAvatar = async (id, file) => {
     // Check if the file is provided
     if (!file) {
@@ -22,10 +22,9 @@ exports.uploadAvatar = async (id, file) => {
                 contentType: file.mimetype,
                 upsert: true
             });
-        // Get the public URL of the uploaded file
 
+        // Get the public URL of the uploaded file
         if (error) {
-            console.error("Error uploading file:", error);
             return createResponse({
                 statusCode: 500,
                 success: false,

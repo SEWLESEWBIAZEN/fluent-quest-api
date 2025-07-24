@@ -1,9 +1,9 @@
-const createLanguage = require('../../fluent-quest.Application/application/language/request/createLanguage');
-const getAllLanguages = require('../../fluent-quest.Application/application/language/response/getAll');
-const getLanguageById = require('../../fluent-quest.Application/application/language/response/getById')
-const getLanguageByCode = require('../../fluent-quest.Application/application/language/response/getByCode') 
-const updateLanguage = require('../../fluent-quest.Application/application/language/request/updateLanguage');
-const deleteLanguage = require('../../fluent-quest.Application/application/language/request/deleteLanguage');
+const createLanguage = require('../../fluent-quest.Application/features/language/request/createLanguage');
+const getAllLanguages = require('../../fluent-quest.Application/features/language/response/getAll');
+const getLanguageById = require('../../fluent-quest.Application/features/language/response/getById')
+const getLanguageByCode = require('../../fluent-quest.Application/features/language/response/getByCode') 
+const updateLanguage = require('../../fluent-quest.Application/features/language/request/updateLanguage');
+const deleteLanguage = require('../../fluent-quest.Application/features/language/request/deleteLanguage');
 const {createResponse} = require('../../fluent-quest.Services/utils/responseHelper')
 
 

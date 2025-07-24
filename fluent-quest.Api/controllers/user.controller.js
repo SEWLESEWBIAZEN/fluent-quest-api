@@ -1,11 +1,11 @@
-const userRegisteration = require('../../fluent-quest.Application/application/user/request/registerUser');
-const userUpdate = require('../../fluent-quest.Application/application/user/request/updateUser');
-const uploadAvatar = require('../../fluent-quest.Application/application/user/request/uploadAvatar');
-const deleteUser =require( '../../fluent-quest.Application/application/user/request/deleteUser');
-const getAllUsers = require('../../fluent-quest.Application/application/user/response/getAllUsers');
-const getAllTeachers = require('../../fluent-quest.Application/application/user/response/getAllTeachers');
-const getUserById = require('../../fluent-quest.Application/application/user/response/getUserById');
-const getUserByEmail = require('../../fluent-quest.Application/application/user/response/getUserByEmail');
+const userRegisteration = require('../../fluent-quest.Application/features/user/request/registerUser');
+const userUpdate = require('../../fluent-quest.Application/features/user/request/updateUser');
+const uploadAvatar = require('../../fluent-quest.Application/features/user/request/uploadAvatar');
+const deleteUser =require( '../../fluent-quest.Application/features/user/request/deleteUser');
+const getAllUsers = require('../../fluent-quest.Application/features/user/response/getAllUsers');
+const getAllTeachers = require('../../fluent-quest.Application/features/user/response/getAllTeachers');
+const getUserById = require('../../fluent-quest.Application/features/user/response/getUserById');
+const getUserByEmail = require('../../fluent-quest.Application/features/user/response/getUserByEmail');
 const { createResponse } = require('../../fluent-quest.Services/utils/responseHelper');
 
 exports.getUsers = async (req, res) => {
