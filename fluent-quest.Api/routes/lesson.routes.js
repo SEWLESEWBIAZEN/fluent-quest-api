@@ -1,6 +1,7 @@
 const express =require('express');
 const {upload} = require('../middleware/multerMiddleware')
 const lessonRoutes = express.Router();
+const contentRoutes = require('./content.routes')
 
 const lessonController = require( '../controllers/lesson.controller')
 
@@ -10,5 +11,7 @@ lessonRoutes.post('/create', upload.single('thumbnail'), lessonController.create
 lessonRoutes.put('/update/:lessonId', lessonController.update);
 lessonRoutes.delete('/delete/:lessonId', lessonController.delete);
 
+//content routes
+lessonRoutes.use('/lesson', contentRoutes);
 
 module.exports = lessonRoutes;

@@ -6,8 +6,9 @@ const lessonsSchema = new mongoose.Schema(
             required: [true, "Title is required!"],
         },
         content: {
-            type: String,
-            required: [true, "Content is required!"]
+            type: [mongoose.Schema.Types.ObjectId],
+            ref: 'contents',
+            required: false,
         },
         course_id: {
             type: mongoose.Schema.Types.ObjectId,
@@ -33,7 +34,9 @@ const lessonsSchema = new mongoose.Schema(
         },
         order: {
             type: Number,
-            default: 1
+            default: 1,
+            unique: [true, "Lesson Order must be unique"],
+            required: [true, "Lesson Order is required!"]
         },
         createdAt: {
             type: Date,

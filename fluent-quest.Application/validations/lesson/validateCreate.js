@@ -5,8 +5,7 @@ exports.validate = async (data) => {
 
         const duplicateLesson = await lessonsModel.findOne({
             course_id: data?.course_id,
-            order: data?.order,
-            type: data?.type
+            order: data?.order           
         });
 
         if (duplicateLesson) {
@@ -21,14 +20,7 @@ exports.validate = async (data) => {
                 success: false,
                 message: "Course Title is required"
             });
-        }
-
-        if (!data?.content) {
-            return ({
-                success: false,
-                message: "Course Content is required"
-            });
-        }
+        }       
 
         if (!data?.course_id) {
             return ({

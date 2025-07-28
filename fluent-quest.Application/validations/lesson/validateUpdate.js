@@ -29,10 +29,10 @@ exports.validate = async (data, lessonId) => {
             })
         }
 
-        if (!data?.title && !data?.content && !data?.course_id && !data?.order && !data?.duration) {
+        if (!data?.title  && !data?.course_id && !data?.order && !data?.duration) {
             return ({
                 success: false,
-                message: "Lesson Title is required"
+                message: "No fields provided for update, what do you want to update?"
             });
         }
 
