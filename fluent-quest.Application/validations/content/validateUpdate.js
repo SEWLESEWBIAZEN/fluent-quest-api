@@ -1,4 +1,3 @@
-const lessonsModel = require('../../../fluent-quest.Domain/model/lesson.model');
 const contentsModel = require('../../../fluent-quest.Domain/model/content.model');
 exports.validate = async (data, contentId) => {
     try {
@@ -20,22 +19,9 @@ exports.validate = async (data, contentId) => {
                 message: "Invalid Content ID",
             });
         }
+        
 
-        const duplicateContent = await contentsModel.findOne({
-            _id: { $ne: contentId },
-            lessonId: data?.lessonId,
-            order: data?.order
-        });
-
-        if (duplicateContent) {
-            return ({
-                success: false,
-                message: "Content with the same order already exists in this lesson"
-            })
-        }
-
-
-        if (!data?.value && !data?.order && !data?.type) {
+        if (!data?.value && !data?.type) {
             return ({
                 success: false,
                 message: "No fields provided for update, what do you want to update?"

@@ -1,8 +1,8 @@
 const contentsModel = require('../../../../fluent-quest.Domain/model/content.model');
 const { createResponse } = require('../../../../fluent-quest.Services/utils/responseHelper');
-exports.getAll = async (lessonId) => {
+exports.getAll = async (lessonId) => {   
     try {
-        const contents = await contentsModel.find({ lesson_id: lessonId }).select(' -__v'); // Exclude __v from the response
+        const contents = await contentsModel.find({ lessonId: lessonId }).select(' -__v'); // Exclude __v from the response
         if (!contents || contents.length === 0) {
             return createResponse({
                 statusCode: contents ? 200 : 404,

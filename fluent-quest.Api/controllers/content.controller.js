@@ -1,6 +1,9 @@
 
 const getAllContents = require('../../fluent-quest.Application/features/content/response/getAll')
 const getContent = require('../../fluent-quest.Application/features/content/response/getById')
+const createContent = require('../../fluent-quest.Application/features/content/request/createContent')
+const updateContent = require('../../fluent-quest.Application/features/content/request/updateContent')
+const deleteContent = require('../../fluent-quest.Application/features/content/request/deleteContent')
 const { createResponse } = require('../../fluent-quest.Services/utils/responseHelper')
 
 exports.getAll = async (req, res) => {
@@ -26,6 +29,28 @@ exports.getById = async (req, res) => {
     }));
 };
 
+exports.create = async(req, res)=>{  
+  const result = await createContent.create(req.body);
+  return res.status(result.statusCode)
+    .json(createResponse({
+      statusCode: result.statusCode,
+      success: result.success,
+      message: result.message,
+      data: result.data || null
+    }));
+}
+exports.update = async(req, res)=>{  
+  const { contentId } = req.params;
+  const result = await updateContent.update(req.body, contentId);
+  return res.status(result.statusCode)
+    .json(createResponse({
+      statusCode: result.statusCode,
+      success: result.success,
+      message: result.message,
+      data: result.data || null
+    }));
+}
+
 exports.uploadFile = async (req, res) => {
   if (!req.file) {
     return res.status(400).json({
@@ -46,3 +71,15 @@ exports.uploadFile = async (req, res) => {
     message: 'File uploaded successfully'
   });
 };
+
+exports.delete = async(req, res)=>{  
+  const { contentId } = req.params;
+  const result = await deleteContent.delete(contentId);
+  return res.status(result.statusCode)
+    .json(createResponse({
+      statusCode: result.statusCode,
+      success: result.success,
+      message: result.message,
+      data: result.data || null
+    }));
+}

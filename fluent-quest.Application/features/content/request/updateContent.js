@@ -1,17 +1,14 @@
 const contentsModel = require('../../../../fluent-quest.Domain/model/content.model');
-const validateCreate = require('../../../../fluent-quest.Application/validations/content/validateCreate');
+const validateUpdate = require('../../../../fluent-quest.Application/validations/content/validateUpdate')
 const { createResponse } = require("../../../../fluent-quest.Services/utils/responseHelper");
-const getNextOrderNumber = require('../../../../fluent-quest.Services/utils/getNextOrder');
-exports.create = async (reqData) => {
+
+exports.update = async (reqData,contentId) => {
     // destructure the request data to get the user details
-    const { lessonId, type, value } = reqData;
-    
-    //get the next order number
-    const nextOrderNumber = await getNextOrderNumber(lessonId);
+    const { type, value } = reqData;
 
     // validate all required fields
     // this will validate the user registration request data
-    const validationResult = await validateCreate.validate(reqData, nextOrderNumber);
+    const validationResult = await validateUpdate.validate(reqData, contentId);
     if (validationResult && !validationResult?.success) {
         return (createResponse({
             statusCode: 400,
@@ -25,28 +22,27 @@ exports.create = async (reqData) => {
 
         // update the database by creating new user
         // this will create a new user in the database       
-        const createdContent = await contentsModel.create({
-            lessonId: lessonId,
+        const updatedContent = await contentsModel.findByIdAndUpdate(contentId, {
             type: type,
-            value: value,
-            order: nextOrderNumber
-        });
+            value: value
+        }, { new: true, runValidators: true });
+
 
         // preparing the payload to return
         // this payload will be used to send the response back to the client
         const payload = {
-            lessonId: createdContent.lessonId,
-            type: createdContent.type,
-            value: createdContent.value,
-            order: createdContent.order
+            lessonId: updatedContent.lessonId,
+            type: updatedContent.type,
+            value: updatedContent.value,
+            order: updatedContent.order
         };
 
         // return the response with status code 201 and success message
         // this response will be sent back to the client
         return (createResponse({
-            statusCode: 201,
+            statusCode: 200,
             success: true,
-            message: "Content created successfully",
+            message: "Content updated successfully",
             data: payload
         }));
     } catch (error) {
