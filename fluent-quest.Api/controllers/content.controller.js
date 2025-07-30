@@ -51,6 +51,7 @@ exports.update = async(req, res)=>{
     }));
 }
 
+//to upload only images
 exports.uploadFile = async (req, res) => {
   if (!req.file) {
     return res.status(400).json({
@@ -69,6 +70,48 @@ exports.uploadFile = async (req, res) => {
     },
     stretched: true, // displayed as a stretched image
     message: 'File uploaded successfully'
+  });
+};
+
+//to upload documents
+exports.uploadFile2 = async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({
+      success: false,
+      message: 'No file uploaded',
+    });
+  }
+
+  const file = req.file;
+  return res.status(200).json({
+    success: 1,
+    file: {
+      url: `${process.env.BASE_URL}/contentUploads/${file.filename}`, // Consider serving static files correctly
+      filename: file.filename,
+      
+    },
+    stretched: true, // displayed as a stretched image
+    message: 'File uploaded successfully'
+  });
+};
+exports.uploadAudio = async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({
+      success: false,
+      message: 'No audio uploaded',
+    });
+  }
+
+  const file = req.file;
+  return res.status(200).json({
+    success: 1,
+    file: {
+      url: `${process.env.BASE_URL}/contentUploads/${file.filename}`, // Consider serving static files correctly
+      filename: file.filename,
+      
+    },
+    stretched: true, // displayed as a stretched image
+    message: 'Audio uploaded successfully'
   });
 };
 

@@ -23,13 +23,17 @@ module.exports = async (app) => {
 
     //<summary>
     // Parses incoming requests with JSON payloads and makes the data available in req.body
-    app.use(bodyParser.json());
+    app.use(express.json({ limit: '20mb' }));
+    // app.use(bodyParser.json());
     //</summary>
 
     //<summary>
     // It reads data sent from forms (like <form method="POST">) and makes it available in req.body.
     // Without it, req.body would be undefined for form submissions.
-    app.use(bodyParser.urlencoded({ extended: true }));
+    // app.use(bodyParser.urlencoded({ extended: true }));
+
+    app.use(express.urlencoded({ extended: true, limit: '20mb' }));
+
     //</summary>
 
     //<summary>
@@ -39,8 +43,8 @@ module.exports = async (app) => {
 
     //<summary>
     //It tells Express to serve static files (like images, CSS, JS, fonts) from the public directory
-   
-   
+
+
     //</summary>
 
     //</summary>

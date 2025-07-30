@@ -19,8 +19,7 @@ const contentSchema = new mongoose.Schema(
     },
     order: {
       type: Number,
-      required: [true, "Order is required"],
-      unique: [true, "Order must be unique"],
+      required: [true, "Order is required"],    
     },
     metadata: {
       type: mongoose.Schema.Types.Mixed,

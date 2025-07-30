@@ -8,6 +8,7 @@ exports.create = async (reqData) => {
     
     //get the next order number
     const nextOrderNumber = await getNextOrderNumber(lessonId);
+    console.log(nextOrderNumber)
 
     // validate all required fields
     // this will validate the user registration request data

@@ -12,4 +12,6 @@ contentRoutes.delete('/content/delete/:contentId', contentController.delete);
 
 //upload file content and return the file path
 contentRoutes.post('/uploadFileContent', uploadToLocal.single('image'), contentController.uploadFile);
+contentRoutes.post('/uploadFileContent2', uploadToLocal.single('file'), contentController.uploadFile2);
+contentRoutes.post('/uploadAudio', uploadToLocal.single('audio'), contentController.uploadAudio);
 module.exports = contentRoutes;

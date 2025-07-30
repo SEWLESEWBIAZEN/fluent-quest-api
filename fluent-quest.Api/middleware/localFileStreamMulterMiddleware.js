@@ -22,7 +22,7 @@ const storage = multer.diskStorage({
 
 const uploadToLocal = multer({
   storage,
-  limits: { fileSize: 10 * 1024 * 1024 }, // 10 MB limit (adjust if needed)
+  limits: { fileSize: 1000 * 1024 * 1024 }, // 10 MB limit (adjust if needed)
   fileFilter: (req, file, cb) => {
     // Optionally filter by file type
     cb(null, true);
