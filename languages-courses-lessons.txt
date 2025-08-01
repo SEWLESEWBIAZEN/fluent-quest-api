@@ -121,6 +121,25 @@ planning
         - get courses by language and level api ✅
         - delete course api ✅
         - test cases for these apis (Optional) 
+    date: 01 Augest 2025
+    courses: Admin | Teacher
+        - Edit course UI ✅       
+        - add lesson UI ✅
+        - edit lesson UI
+        - delete lesson UI
+        - contents list UI on lesson sidebar
+        - edit content UI
+        - delete content UI
+        - update course thumbnail
+    
+    date: 02 August 2025
+    courses: user | student
+        - course enrollment API + UI
+        - course withdrawal API + UI
+        - enrolled courses list/dashboard API + UI
+        - Learning progress API + UI
+        
+
 
 
 

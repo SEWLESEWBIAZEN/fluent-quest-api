@@ -12,7 +12,7 @@ const router = express.Router();
 const { authCheck, adminCheck } = require('../../fluent-quest.Api/middleware/authMiddleware');
 
 // Middleware for authentication and authorization
-// router.use(authCheck); // Apply authCheck middleware to all routes
+ //router.use(authCheck); // Apply authCheck middleware to all routes
 //router.use(adminCheck); // Apply adminCheck middleware to all routes that require admin privileges
 
 // API routes

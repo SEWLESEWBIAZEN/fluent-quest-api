@@ -2,8 +2,7 @@ const admin = require('../../fluent-quest.Services/external-services/firebase');
 const userModel = require('../../fluent-quest.Domain/model/user.model');
 const { createResponse } = require('../../fluent-quest.Services/utils/responseHelper');
 
-exports.authCheck = async (req, res, next) => {
-    
+exports.authCheck = async (req, res, next) => {   
     try
     {
         const firebaseUser = await admin.auth().verifyIdToken(req.headers.authtoken);

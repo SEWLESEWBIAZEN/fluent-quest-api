@@ -3,7 +3,7 @@
 exports.getAll =async(courseId)=>{   
     try {
         const lessons = await lessonsModel.find({ course_id: courseId }).select(' -__v'); // Exclude __v from the response
-        if (!lessons || lessons.length === 0) {
+        if (!lessons  ) {
             return createResponse({
                 statusCode: 404,
                 success: false,
@@ -16,7 +16,7 @@ exports.getAll =async(courseId)=>{
         return createResponse({
             statusCode: 200,
             success: true,
-            message: "Lessons retrieved successfully",
+            message: lessons.length === 0 ? "No lessons found!" : "Lessons retrieved successfully",
             data: lessons
         });
     } catch (error) {

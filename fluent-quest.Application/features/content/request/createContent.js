@@ -1,18 +1,14 @@
 const contentsModel = require('../../../../fluent-quest.Domain/model/content.model');
 const validateCreate = require('../../../../fluent-quest.Application/validations/content/validateCreate');
 const { createResponse } = require("../../../../fluent-quest.Services/utils/responseHelper");
-const getNextOrderNumber = require('../../../../fluent-quest.Services/utils/getNextOrder');
 exports.create = async (reqData) => {
     // destructure the request data to get the user details
-    const { lessonId, type, value } = reqData;
-    
-    //get the next order number
-    const nextOrderNumber = await getNextOrderNumber(lessonId);
-    console.log(nextOrderNumber)
+    const { lessonId, type, value } = reqData;  
+
 
     // validate all required fields
     // this will validate the user registration request data
-    const validationResult = await validateCreate.validate(reqData, nextOrderNumber);
+    const validationResult = await validateCreate.validate(reqData);
     if (validationResult && !validationResult?.success) {
         return (createResponse({
             statusCode: 400,
@@ -29,8 +25,7 @@ exports.create = async (reqData) => {
         const createdContent = await contentsModel.create({
             lessonId: lessonId,
             type: type,
-            value: value,
-            order: nextOrderNumber
+            value: value            
         });
 
         // preparing the payload to return

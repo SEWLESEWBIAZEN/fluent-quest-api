@@ -19,7 +19,7 @@ const contentSchema = new mongoose.Schema(
     },
     order: {
       type: Number,
-      required: [true, "Order is required"],    
+      required: false,    
     },
     metadata: {
       type: mongoose.Schema.Types.Mixed,
@@ -31,5 +31,6 @@ const contentSchema = new mongoose.Schema(
   }
 );
 
+contentSchema.index({ lessonId: 1, order: 1 }, { unique: true }); // Ensure unique order per lesson
 const contentsModel = mongoose.model("contents", contentSchema);
 module.exports = contentsModel;

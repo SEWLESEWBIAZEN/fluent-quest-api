@@ -1,6 +1,6 @@
 const lessonsModel = require('../../../fluent-quest.Domain/model/lesson.model');
 const contentsModel = require('../../../fluent-quest.Domain/model/content.model');
-exports.validate = async (data,order) => {
+exports.validate = async (data) => {
     try {
 
         if (!data?.lessonId) {
@@ -20,17 +20,17 @@ exports.validate = async (data,order) => {
             });
         }
 
-        const duplicateContent = await contentsModel.findOne({
-            lessonId: data?.lessonId,
-            order: order
-        });
+        // const duplicateContent = await contentsModel.findOne({
+        //     lessonId: data?.lessonId,
+        //     order: order
+        // });
 
-        if (duplicateContent) {
-            return ({
-                success: false,
-                message: "Content with the same order already exists in this lesson"
-            })
-        }
+        // if (duplicateContent) {
+        //     return ({
+        //         success: false,
+        //         message: "Content with the same order already exists in this lesson"
+        //     })
+        // }
 
         if (!data?.value) {
             return ({
@@ -39,12 +39,7 @@ exports.validate = async (data,order) => {
             });
         }
 
-        if (!order) {
-            return ({
-                success: false,
-                message: "Course Order is required"
-            });
-        }
+  
 
         return ({
             success: true,

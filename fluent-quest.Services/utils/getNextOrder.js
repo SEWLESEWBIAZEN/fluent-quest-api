@@ -1,10 +1,20 @@
-const contentsModel = require('../../fluent-quest.Domain/model/content.model'); // Adjust the path as necessary
-async function getNextOrder(lessonId) {
+const contentsModel = require('../../fluent-quest.Domain/model/content.model'); 
+const lessonsModel = require('../../fluent-quest.Domain/model/lesson.model');
+async function getNextContentOrder(lessonId) {
   const lastContent = await contentsModel.findOne({ lessonId })
-    .sort({ order: -1 }) // sort by descending order
-    .select('order');     // only get the order field
+    .sort({ order: -1 }) 
+    .select('order');     
 
   return lastContent ? lastContent.order + 1 : 1;
 };
+async function getNextLessonOrder(courseId) {
+  const lastLesson = await lessonsModel.findOne({ course_id: courseId })
+    .sort({ order: -1 }) 
+    .select('order');     
 
-module.exports = getNextOrder;
+  return lastLesson ? lastLesson.order + 1 : 1;
+};
+
+
+
+module.exports = {getNextContentOrder,getNextLessonOrder};

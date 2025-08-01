@@ -15,6 +15,10 @@ const lessonsSchema = new mongoose.Schema(
             ref: 'courses',
             required: [true, "Course is required!"]
         },
+        description: {
+            type: String,
+            required: false
+        },
         thumbnail: {
             type: String,
             required: false
@@ -34,8 +38,7 @@ const lessonsSchema = new mongoose.Schema(
         },
         order: {
             type: Number,
-            default: 1,
-            unique: [true, "Lesson Order must be unique"],
+            default: 1,           
             required: [true, "Lesson Order is required!"]
         },
         createdAt: {
@@ -48,6 +51,6 @@ const lessonsSchema = new mongoose.Schema(
         timestamps: true,
     }
 );
-
+lessonsSchema.index({ course_id: 1, order: 1 }, { unique: true });
 const lessonsModel = mongoose.model("lessons", lessonsSchema);
 module.exports = lessonsModel;

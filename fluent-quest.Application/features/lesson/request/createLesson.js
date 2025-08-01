@@ -4,8 +4,9 @@ const { createResponse } = require("../../../../fluent-quest.Services/utils/resp
 const { supabase } = require("../../../../fluent-quest.Services/external-services/supabase")
 
 exports.create = async (reqData, thumbnail) => {
-    // destructure the request data to get the user details
-    const { title, course_id, content, type, duration, order, point } = reqData;
+   
+   // destructure the request data to get the user details
+    const { title, course_id, description, type, duration, point } = reqData;
 
     // validate all required fields 
     const validationResult = await validateCreate.validate(reqData);
@@ -51,11 +52,10 @@ exports.create = async (reqData, thumbnail) => {
         // this will create a new user in the database       
         const createdCourse = await lessonsModel.create({
             title: title,
-            course_id: course_id,
-            content: content,
+            course_id: course_id,            
             type: type,
+            description: description,
             duration: duration,
-            order: order,
             point: point,
             thumbnail: publicUrlData.publicUrl
         });
@@ -64,9 +64,9 @@ exports.create = async (reqData, thumbnail) => {
         // this payload will be used to send the response back to the client
         const payload = {
             title: createdCourse.title,
-            course_id: createdCourse.course_id,
-            content: createdCourse.content,
+            course_id: createdCourse.course_id,            
             type: createdCourse.type,
+            description: createdCourse.description,
             duration: createdCourse.duration,
             order: createdCourse.order,
             point: createdCourse.point,
@@ -82,8 +82,10 @@ exports.create = async (reqData, thumbnail) => {
             data: payload
         }));
     } catch (error) {
+        // console.error("Error creating lesson:", error);
         // if there is an error, return 500 error
         return (createResponse({
+            
             statusCode: 500,
             success: false,
             message: error.message || "Internal Server Error",

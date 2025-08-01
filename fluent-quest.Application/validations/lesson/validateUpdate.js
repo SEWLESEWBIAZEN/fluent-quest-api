@@ -29,7 +29,7 @@ exports.validate = async (data, lessonId) => {
             })
         }
 
-        if (!data?.title  && !data?.course_id && !data?.order && !data?.duration) {
+        if (!data?.title  && !data?.course_id && !data?.order && !data?.duration && !data?.description) {
             return ({
                 success: false,
                 message: "No fields provided for update, what do you want to update?"

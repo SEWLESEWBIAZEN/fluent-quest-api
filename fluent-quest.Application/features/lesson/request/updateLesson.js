@@ -4,7 +4,7 @@ const { createResponse } = require("../../../../fluent-quest.Services/utils/resp
 
 exports.update = async (reqData, lessonId) => {
     // destructure the request data to get the user details
-    const { title, course_id, content, type, duration, order, point } = reqData;
+    const { title, course_id, description, type, duration, order, point } = reqData;
 
     // validate all required fields 
     const validationResult = await validateUpdate.validate(reqData, lessonId);
@@ -24,7 +24,7 @@ exports.update = async (reqData, lessonId) => {
         }, {
             title: title,
             course_id: course_id,
-            content: content,
+            description: description,
             type: type,
             duration: duration,
             order: order,
@@ -38,7 +38,7 @@ exports.update = async (reqData, lessonId) => {
         const payload = {
             title: updatedCourse.title,
             course_id: updatedCourse.course_id,
-            content: updatedCourse.content,
+            description: updatedCourse.description,
             type: updatedCourse.type,
             duration: updatedCourse.duration,
             order: updatedCourse.order,
