@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  redis:
+    image: redis:7
+    container_name: redis-fluent-quest
+    ports:
+      - "6379:6379"
+
+  app:
+    build: .
+    container_name: fluent-quest-api
+    ports:
+      - "8000:8080"
+    depends_on:
+      - redis
