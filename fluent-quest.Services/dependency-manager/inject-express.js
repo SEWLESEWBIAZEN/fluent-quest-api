@@ -1,12 +1,11 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const corsMiddleware = require('../../fluent-quest.Api/config/corsConfig');
 const routes = require('../../fluent-quest.Api/routes');
 const { createResponse } = require('../utils/responseHelper');
 const connectDB = require('../utils/connectDB');
 const dotenv = require('dotenv');
-const path = require('path')
+
 
 //<summary>
 // Loads environment variables from a specific .env file based on the current NODE_ENV value;

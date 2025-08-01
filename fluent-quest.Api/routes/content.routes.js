@@ -1,10 +1,13 @@
 const express = require('express')
+const {redisCacheMiddleware} = require('../middleware/cacheMiddleware')
 const contentController = require('../controllers/content.controller')
 const {uploadToLocal} = require('../middleware/localFileStreamMulterMiddleware')
+
 const contentRoutes = express.Router();
 
-contentRoutes.get('/:lessonId/contents', contentController.getAll);
-contentRoutes.get('/contents/:contentId', contentController.getById);
+
+contentRoutes.get('/:lessonId/contents', redisCacheMiddleware(), contentController.getAll);
+contentRoutes.get('/contents/:contentId', redisCacheMiddleware(), contentController.getById);
 contentRoutes.post('/content/create', contentController.create);
 contentRoutes.put('/content/update/:contentId', contentController.update);
 contentRoutes.delete('/content/delete/:contentId', contentController.delete);
