@@ -6,7 +6,7 @@ const {uploadToLocal} = require('../middleware/localFileStreamMulterMiddleware')
 const contentRoutes = express.Router();
 
 
-contentRoutes.get('/:lessonId/contents',  contentController.getAll);
+contentRoutes.get('/:lessonId/contents', redisCacheMiddleware(), contentController.getAll);
 contentRoutes.get('/contents/:contentId',  contentController.getById);
 contentRoutes.post('/content/create', contentController.create);
 contentRoutes.put('/content/update/:contentId', contentController.update);
