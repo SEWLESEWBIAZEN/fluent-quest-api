@@ -5,9 +5,9 @@ const {redisCacheMiddleware} = require('../middleware/cacheMiddleware')
 
 const courseController =require( '../controllers/course.controller')
 
-courseRoutes.get('/getAll', redisCacheMiddleware(), courseController.getAll);
-courseRoutes.get('/getByInstructor/:teacherId', redisCacheMiddleware(), courseController.getCoursesByInstructor);
-courseRoutes.get('/getById/:courseId', redisCacheMiddleware(), courseController.getCourseById);
+courseRoutes.get('/getAll',  courseController.getAll);
+courseRoutes.get('/getByInstructor/:teacherId', courseController.getCoursesByInstructor);
+courseRoutes.get('/getById/:courseId',  courseController.getCourseById);
 courseRoutes.post('/create', upload.single('thumbnail'), courseController.create);
 
 //Note: The below line allow you to upload multiple files in a single request

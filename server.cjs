@@ -13,9 +13,9 @@ injectRateLimiter(app);
 app.use('/contentUploads', express.static(path.join(__dirname, '/fluent-quest.api/public/contentUploads')))
 if (process.env.NODE_ENV !== 'test') {
   const port = process.env.PORT || 8000;
-  const host = process.env.HOSTNAME || 'localhost';
+  const host = process.env.HOSTNAME || '0.0.0.0';
 
-  app.listen(port, '0.0.0.0', () => {
+  app.listen(port, host, () => {
     console.log(`Server running at http://${host}:${port}`);
   });
 } else {

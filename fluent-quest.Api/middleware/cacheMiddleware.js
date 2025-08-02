@@ -1,19 +1,34 @@
-// cacheMiddleware.js
-const redisClient = require('../../fluent-quest.Services/dependency-manager/redisClient'); // adjust the path as needed
+const redisClient = require('../../fluent-quest.Services/dependency-manager/redisClient');
+const { createResponse } = require('../../fluent-quest.Services/utils/responseHelper');
 
 const redisCacheMiddleware = (durationInSec = 600) => {
   return async (req, res, next) => {
-    const key = `data:${req.params.id || 'all'}:${req.user?.id || 'guest'}`;
+    const key = req.originalUrl;
+
     try {
-      const cachedData = await redisClient.get(key);
-      if (cachedData) {
-        return res.json({ fromCache: true, data: JSON.parse(cachedData) });
+      const cachedRaw = await redisClient.get(key);
+      if (cachedRaw) {
+        const cachedResponse = JSON.parse(cachedRaw);
+        cachedResponse.fromCache = true;
+        return res.status(cachedResponse.statusCode || 200).json(cachedResponse);
       }
-     
+
       const originalJson = res.json.bind(res);
+
       res.json = async (body) => {
-        await redisClient.setEx(key, durationInSec, JSON.stringify(body));
-        originalJson({ fromCache: false, data: body });
+        const responseToCache = createResponse({
+          statusCode: body?.statusCode ?? 200,
+          success: body?.success ?? true,
+          message: body?.message ?? 'Success',
+          data: body?.data ?? null,
+        });
+
+        if (responseToCache?.success) {          
+          await redisClient.setEx(key, durationInSec, JSON.stringify(responseToCache));
+        }
+
+        responseToCache.fromCache = false;
+        return originalJson(responseToCache);
       };
 
       next();

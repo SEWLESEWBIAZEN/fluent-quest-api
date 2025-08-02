@@ -6,12 +6,15 @@ services:
     container_name: redis-fluent-quest
     ports:
       - "6379:6379"
+    
 
   app:
     build: .
     container_name: fluent-quest-api
     ports:
       - "8000:8000"
+    volumes:
+      - ./fluent-quest.api/public/contentUploads:/app/fluent-quest.api/public/contentUploads
     depends_on:
       - redis
     environment:

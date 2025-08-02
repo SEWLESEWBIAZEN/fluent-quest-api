@@ -4,7 +4,7 @@ const uploadAvatar = require('../../fluent-quest.Application/features/user/reque
 const deleteUser =require( '../../fluent-quest.Application/features/user/request/deleteUser');
 const getAllUsers = require('../../fluent-quest.Application/features/user/response/getAllUsers');
 const getAllTeachers = require('../../fluent-quest.Application/features/user/response/getAllTeachers');
-const getUserById = require('../../fluent-quest.Application/features/user/response/getUserById');
+const {getUserById} = require('../../fluent-quest.Application/features/user/response/getUserById');
 const getUserByEmail = require('../../fluent-quest.Application/features/user/response/getUserByEmail');
 const { createResponse } = require('../../fluent-quest.Services/utils/responseHelper');
 
@@ -31,15 +31,9 @@ exports.getTeachers = async (req, res) => {
         }));
 };
 
-exports.getUser = async (req, res) => {    
-    const result = await getUserById.getUserById(req.params.id);
-    return res.status(result.statusCode)
-        .json(createResponse({
-            statusCode: result.statusCode,
-            success: result.success,
-            message: result.message,
-            data: result.data || null
-        }));
+exports.getUser = async (req, res) => {
+    const result = await getUserById(req.params.id);   
+    return res.status(result.statusCode).json(result);
 };
 
 exports.getUserByEmail = async (req, res) => {

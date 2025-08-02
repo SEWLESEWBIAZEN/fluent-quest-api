@@ -5,6 +5,7 @@ const routes = require('../../fluent-quest.Api/routes');
 const { createResponse } = require('../utils/responseHelper');
 const connectDB = require('../utils/connectDB');
 const dotenv = require('dotenv');
+const isStandardResponse = require('../utils/isStandardResponse')
 
 
 //<summary>
@@ -62,15 +63,17 @@ module.exports = async (app) => {
     // Global error handling middleware that catches any errors passed down the middleware chain,
     // sets an appropriate status code, and sends a structured JSON response to the client
     //</summary>
-    app.use((err, req, res, next) => {
-        console.error(err);
-        res.status(err.statusCode || 500)
-            .json(
-                createResponse({
-                    statusCode: err.statusCode || 500,
-                    success: false,
-                    message: err.message || 'Internal Server Error'
-                })
-            );
+    app.use((err, req, res, next) => {       
+        const statusCode = err.statusCode || 500;
+        const errorResponse = isStandardResponse(err)
+            ? err
+            : createResponse({
+                statusCode,
+                success: false,
+                message: err.message || 'Internal Server Error',
+                data: null
+            });
+        res.status(statusCode).json(errorResponse);
     });
+
 };
