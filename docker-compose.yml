@@ -11,6 +11,9 @@ services:
     build: .
     container_name: fluent-quest-api
     ports:
-      - "8000:8080"
+      - "8000:8000"
     depends_on:
       - redis
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379

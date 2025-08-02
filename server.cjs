@@ -15,7 +15,7 @@ if (process.env.NODE_ENV !== 'test') {
   const port = process.env.PORT || 8000;
   const host = process.env.HOSTNAME || 'localhost';
 
-  app.listen(port, host, () => {
+  app.listen(port, '0.0.0.0', () => {
     console.log(`Server running at http://${host}:${port}`);
   });
 } else {
