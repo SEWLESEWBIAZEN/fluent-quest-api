@@ -10,7 +10,12 @@ const path = require('path')
 const app = express();
 injectExpress(app);
 injectRateLimiter(app);
+
+//<summary>
+//It tells Express to serve static files (like images, CSS, JS, fonts) from the public directory
+//</summary>
 app.use('/contentUploads', express.static(path.join(__dirname, '/fluent-quest.api/public/contentUploads')))
+
 if (process.env.NODE_ENV !== 'test') {
   const port = process.env.PORT || 8000;
   const host = process.env.HOSTNAME || '0.0.0.0';

@@ -40,13 +40,7 @@ module.exports = async (app) => {
     // It logs brief details about each incoming HTTP request to your console in a color-coded and concise format.
     app.use(morgan('dev'));
     //</summary>
-
-    //<summary>
-    //It tells Express to serve static files (like images, CSS, JS, fonts) from the public directory
-
-
-    //</summary>
-
+    
     //</summary>
 
     //<summary>
