@@ -45,7 +45,6 @@ exports.uploadFile = async (req, res) => {
     message: 'File uploaded successfully'
   });
 };
-
 //to upload documents
 exports.uploadFile2 = async (req, res) => {
   if (!req.file) {
