@@ -25,7 +25,7 @@ exports.update = async(req, res)=>{
 }
 
 //to upload only images
-exports.uploadFile = async (req, res) => {
+exports.uploadFile = async (req, res) => {  
   if (!req.file) {
     return res.status(400).json({
       success: false,
