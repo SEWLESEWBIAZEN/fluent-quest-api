@@ -1,13 +1,12 @@
 const { stripe } = require('../../../../fluent-quest.Services/external-services/stripe');
 const paymentModel = require('../../../../fluent-quest.Domain/model/payment.model');
 const usersModel = require('../../../../fluent-quest.Domain/model/user.model');
-const handleSubscriptionWebhook = require('../../../subscription/request/handleSubscriptionWebhook');
+const handleSubscriptionWebhook = require('../../subscription/request/handleSubscriptionWebhook');
 const { createResponse } = require('../../../../fluent-quest.Services/utils/responseHelper');
 
 exports.handle = async (event) => {
     try {
         let payment;
-
         // Handle different event types
         switch (event.type) {
             case 'checkout.session.completed':

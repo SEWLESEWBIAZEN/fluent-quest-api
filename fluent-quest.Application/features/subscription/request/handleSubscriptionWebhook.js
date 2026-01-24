@@ -3,9 +3,6 @@ const subscriptionModel = require('../../../../fluent-quest.Domain/model/subscri
 const SubscriptionTier = require('../../../../fluent-quest.Domain/enums/subscriptionTier');
 const { createResponse } = require('../../../../fluent-quest.Services/utils/responseHelper');
 
-/**
- * Handle Stripe subscription webhook events
- */
 exports.handle = async (event) => {
     try {
         let subscription;
