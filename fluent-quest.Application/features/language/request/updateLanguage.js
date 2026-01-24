@@ -1,7 +1,7 @@
 const languagesModel = require('../../../../fluent-quest.Domain/model/language.model');
 const validateUpdate = require('../../../../fluent-quest.Application/validations/language/validateUpdate');
 const { createResponse } = require("../../../../fluent-quest.Services/utils/responseHelper");
-
+const redisClient = require('../../../../fluent-quest.Services/dependency-manager/redisClient');
 exports.update = async (reqData, id) => {
     // destructure the request data to get the user details
     const { name, code, flag, description } = reqData;
@@ -37,6 +37,10 @@ exports.update = async (reqData, id) => {
             flag: createdLanguage.flag,
             description: createdLanguage.description
         };
+
+        //invalidate the cache for this key
+        await redisClient.delPattern(`GET:/api/languages/getAll*`);   
+        await redisClient.delPattern(`GET:/api/languages/getById/${id}*`);  
 
         // return the response with status code 201 and success message
         // this response will be sent back to the client

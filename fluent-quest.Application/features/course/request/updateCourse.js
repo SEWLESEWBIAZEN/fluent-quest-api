@@ -1,9 +1,9 @@
-const coursesModel = require( '../../../../fluent-quest.Domain/model/course.model');
-const validateUpdate = require( '../../../../fluent-quest.Application/validations/course/validateUpdate');
-const { createResponse } = require( "../../../../fluent-quest.Services/utils/responseHelper");
-
+const coursesModel = require('../../../../fluent-quest.Domain/model/course.model');
+const validateUpdate = require('../../../../fluent-quest.Application/validations/course/validateUpdate');
+const { createResponse } = require("../../../../fluent-quest.Services/utils/responseHelper");
+const redisClient = require('../../../../fluent-quest.Services/dependency-manager/redisClient');
 exports.update = async (reqData, id) => {
- // destructure the request data to get the user details
+    // destructure the request data to get the user details
     const { title, code, description, language_id, language_level, teacherId, duration, price, thumbnail } = reqData;
 
     // validate all required fields
@@ -47,6 +47,11 @@ exports.update = async (reqData, id) => {
             price: updatedCourse.price,
             thumbnail: updatedCourse.thumbnail
         };
+
+        //invalidate the cache for this key
+        await redisClient.delPattern(`GET:/api/courses/getAll*`);
+        await redisClient.delPattern(`GET:/api/courses/getByInstructor/${updatedCourse.teacherId}*`);
+        await redisClient.delPattern(`GET:/api/courses/getById/${id}*`);
 
         // return the response with status code 201 and success message
         // this response will be sent back to the client

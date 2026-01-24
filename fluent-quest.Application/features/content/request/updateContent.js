@@ -1,7 +1,7 @@
 const contentsModel = require('../../../../fluent-quest.Domain/model/content.model');
 const validateUpdate = require('../../../../fluent-quest.Application/validations/content/validateUpdate')
 const { createResponse } = require("../../../../fluent-quest.Services/utils/responseHelper");
-
+const redisClient = require('../../../../fluent-quest.Services/dependency-manager/redisClient');
 exports.update = async (reqData,contentId) => {
     // destructure the request data to get the user details
     const { type, value } = reqData;
@@ -19,7 +19,6 @@ exports.update = async (reqData,contentId) => {
     }
     try {
 
-
         // update the database by creating new user
         // this will create a new user in the database       
         const updatedContent = await contentsModel.findByIdAndUpdate(contentId, {
@@ -36,6 +35,12 @@ exports.update = async (reqData,contentId) => {
             value: updatedContent.value,
             order: updatedContent.order
         };
+
+        //invalidate the cache for this key
+        await redisClient.delPattern(`GET:/api/lessons/lesson/${updatedContent.lessonId}/contents*`);
+        //invalidate the getbyid
+        await redisClient.delPattern(`GET:/api/lessons/lesson/contents/${contentId}`);
+
 
         // return the response with status code 201 and success message
         // this response will be sent back to the client

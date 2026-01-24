@@ -1,15 +1,12 @@
 const redisClient = require('../../fluent-quest.Services/dependency-manager/redisClient');
 const { createResponse } = require('../../fluent-quest.Services/utils/responseHelper');
-const crypto = require('crypto');
 
 const redisCacheMiddleware = (durationInSec = 600) => {
   return async (req, res, next) => {
-    const url = new URL(`${req.protocol}://${req.get('host')}${req.originalUrl}`);
+    const url = new URL(`${req.protocol}://${req.get('host')}${req.originalUrl}`);    
     //For best practice: normalize query params and include HTTP method (GET, POST, etc.)
     url.searchParams.sort(); 
-    const rawKey = `${req.method}:${url.pathname}?${url.searchParams.toString()}`;
-    //hash the result if you want fixed-length Redis keys.
-    const key = crypto.createHash('sha256').update(rawKey).digest('hex');
+    const key = `GET:${url.pathname}?${url.searchParams.toString()}`;
 
     try {
       const cachedRaw = await redisClient.get(key);

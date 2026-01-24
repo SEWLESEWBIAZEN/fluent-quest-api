@@ -2,6 +2,7 @@ const { createResponse } = require("../../../../fluent-quest.Services/utils/resp
 const { supabase } = require("../../../../fluent-quest.Services/external-services/supabase")
 const usersModel = require('../../../../fluent-quest.Domain/model/user.model')
 exports.uploadAvatar = async (id, file) => {
+    console.log(file)
     // Check if the file is provided
     if (!file) {
         return createResponse({

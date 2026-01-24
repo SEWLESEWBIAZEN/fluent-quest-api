@@ -1,10 +1,10 @@
 const contentsModel = require('../../../../fluent-quest.Domain/model/content.model');
 const validateCreate = require('../../../../fluent-quest.Application/validations/content/validateCreate');
 const { createResponse } = require("../../../../fluent-quest.Services/utils/responseHelper");
+const redisClient = require('../../../../fluent-quest.Services/dependency-manager/redisClient');
 exports.create = async (reqData) => {
     // destructure the request data to get the user details
-    const { lessonId, type, value } = reqData;  
-
+    const { lessonId, type, value } = reqData;
 
     // validate all required fields
     // this will validate the user registration request data
@@ -17,15 +17,21 @@ exports.create = async (reqData) => {
             data: null
         }));
     }
-    try {
+    try {       
+        const lastContentOrder = await contentsModel.findOne()
+        .sort({order:-1}) //descending
+        .select('order -_id')
+        .lean();
 
-
+        const order = lastContentOrder.order || 0
+ 
         // update the database by creating new user
         // this will create a new user in the database       
         const createdContent = await contentsModel.create({
             lessonId: lessonId,
             type: type,
-            value: value            
+            value: value,
+            order: order + 1
         });
 
         // preparing the payload to return
@@ -37,6 +43,9 @@ exports.create = async (reqData) => {
             order: createdContent.order
         };
 
+        //invalidate the cache for this key
+        await redisClient.delPattern(`GET:/api/lessons/lesson/${lessonId}/contents*`);
+
         // return the response with status code 201 and success message
         // this response will be sent back to the client
         return (createResponse({
@@ -46,6 +55,7 @@ exports.create = async (reqData) => {
             data: payload
         }));
     } catch (error) {
+        console.log("error",error)
         // if there is an error, return 500 error
         return (createResponse({
             statusCode: 500,

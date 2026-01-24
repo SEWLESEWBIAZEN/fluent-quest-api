@@ -1,7 +1,7 @@
 const contentsModel = require('../../../../fluent-quest.Domain/model/content.model')
-const {createResponse} = require('../../../../fluent-quest.Services/utils/responseHelper')
-
-exports.delete = async(contentId)=>{
+const { createResponse } = require('../../../../fluent-quest.Services/utils/responseHelper')
+const redisClient = require('../../../../fluent-quest.Services/dependency-manager/redisClient');
+exports.delete = async (contentId) => {
     if (!contentId) {
         return createResponse({
             statusCode: 400,
@@ -20,6 +20,12 @@ exports.delete = async(contentId)=>{
                 data: null
             });
         }
+
+    //invalidate the cache for this key
+    await redisClient.delPattern(`GET:/api/lessons/lesson/${deletedContent.lessonId}/contents*`);
+    //invalidate the getbyid
+    await redisClient.delPattern(`GET:/api/lessons/lesson/contents/${contentId}`);
+
         return createResponse({
             statusCode: 200,
             success: true,

@@ -4,6 +4,7 @@ const lessonsSchema = new mongoose.Schema(
         title: {
             type: String,
             required: [true, "Title is required!"],
+            unique: [true, "The Lesson has already been created!"]
         },
         content: {
             type: [mongoose.Schema.Types.ObjectId],

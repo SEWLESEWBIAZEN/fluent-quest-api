@@ -3,7 +3,7 @@ const { userTypeOf } = require("../../../../fluent-quest.Services/utils/userType
 const validateUserRegisteration = require('../../../validations/user/validateRegister');
 const usersModel = require("../../../../fluent-quest.Domain/model/user.model")
 const {createResponse} = require("../../../../fluent-quest.Services/utils/responseHelper")
-
+const redisClient = require('../../../../fluent-quest.Services/dependency-manager/redisClient');
 exports.register = async (reqData) => {
     // destructure the request data to get the user details
     const { username, name, role, email, phoneNumber, avatar, streakDays=1, points =100, enrolledCourses } = reqData;
@@ -44,7 +44,10 @@ exports.register = async (reqData) => {
             role: createdUser.role,
             name: createdUser.name,
             phoneNumber: createdUser.phoneNumber
-        };
+        };        
+        //invalidate the cache for this key
+        await redisClient.delPattern(`GET:/api/users/getAll*`);
+        
         // return the response with status code 201 and success message
         // this response will be sent back to the client
         return (createResponse({

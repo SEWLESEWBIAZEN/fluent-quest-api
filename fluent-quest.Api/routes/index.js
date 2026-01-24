@@ -4,6 +4,7 @@ const languageRoutes = require('./language.routes');
 const languageLevelRoutes =require( './languageLevel.routes')
 const courseRoutes =require( './course.routes')
 const lessonRoutes =require( './lesson.routes')
+const paymentRoutes = require('./payment.routes')
 
 
 const router = express.Router();
@@ -21,6 +22,7 @@ router.use('/languages', languageRoutes);
 router.use('/languageLevels', languageLevelRoutes);
 router.use('/courses', courseRoutes);
 router.use('/lessons', lessonRoutes);
+router.use('/payments', paymentRoutes);
 
 
 module.exports = router;

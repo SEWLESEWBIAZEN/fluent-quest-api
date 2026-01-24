@@ -2,7 +2,7 @@ const usersModel = require('../../../../fluent-quest.Domain/model/user.model');
 const { userTypeOf } = require("../../../../fluent-quest.Services/utils/userTypeOf");
 const validateUserUpdate = require('../../../validations/user/validateUpdate');
 const { createResponse } = require("../../../../fluent-quest.Services/utils/responseHelper");
-
+const redisClient = require('../../../../fluent-quest.Services/dependency-manager/redisClient');
 exports.update = async (id, reqData) => {
     
     // destructure the request data to get the user details
@@ -58,6 +58,10 @@ exports.update = async (id, reqData) => {
                 data: null
             });
         }
+
+        //invalidate the cache for this key
+        await redisClient.delPattern(`GET:/api/users/getAll*`);
+        await redisClient.delPattern(`GET:/api/users/user-by-id/${updatedUser._id}*`);
 
         // return the response with status code 200 and success message
         // this response will be sent back to the client

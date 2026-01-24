@@ -2,6 +2,7 @@ const coursesModel = require('../../../../fluent-quest.Domain/model/course.model
 const validateCreate = require('../../../../fluent-quest.Application/validations/course/validateCreate');
 const { createResponse } = require("../../../../fluent-quest.Services/utils/responseHelper");
 const { supabase } = require("../../../../fluent-quest.Services/external-services/supabase")
+const redisClient = require('../../../../fluent-quest.Services/dependency-manager/redisClient');
 
 exports.create = async (reqData, thumbnail) => {
     // destructure the request data to get the user details
@@ -73,6 +74,10 @@ exports.create = async (reqData, thumbnail) => {
             duration: createdCourse.duration,
             price: createdCourse.price
         };
+
+        //invalidate the cache for this key
+        await redisClient.delPattern(`GET:/api/courses/getAll*`);
+        await redisClient.delPattern(`GET:/api/courses/getByInstructor/${createdCourse.teacherId}*`);
 
         // return the response with status code 201 and success message
         // this response will be sent back to the client

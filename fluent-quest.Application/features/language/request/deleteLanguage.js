@@ -1,5 +1,6 @@
 const languagesModel = require( '../../../../fluent-quest.Domain/model/language.model')
 const {createResponse} = require ('../../../../fluent-quest.Services/utils/responseHelper')
+const redisClient = require('../../../../fluent-quest.Services/dependency-manager/redisClient');
 
 exports.delete = async(id)=>{
     try {
@@ -11,6 +12,10 @@ exports.delete = async(id)=>{
                 message: "No language found!"
             });
         }
+
+        //invalidate the cache for this key
+        await redisClient.delPattern(`GET:/api/languages/getAll*`);   
+        await redisClient.delPattern(`GET:/api/languages/getById/${id}*`);   
 
         // Return success response
         return createResponse({

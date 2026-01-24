@@ -13,7 +13,6 @@ exports.getById = async (req, res) => {
   const result = await getContent.getById(contentId);
   return res.status(result.statusCode).json(result);    
 };
-
 exports.create = async(req, res)=>{  
   const result = await createContent.create(req.body);
   return res.status(result.statusCode).json(result);    
@@ -23,7 +22,6 @@ exports.update = async(req, res)=>{
   const result = await updateContent.update(req.body, contentId);
   return res.status(result.statusCode).json(result);
 }
-
 //to upload only images
 exports.uploadFile = async (req, res) => {  
   if (!req.file) {
@@ -86,7 +84,6 @@ exports.uploadAudio = async (req, res) => {
     message: 'Audio uploaded successfully'
   });
 };
-
 exports.delete = async(req, res)=>{  
   const { contentId } = req.params;
   const result = await deleteContent.delete(contentId);

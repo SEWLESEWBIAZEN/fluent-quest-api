@@ -1,7 +1,7 @@
 const lessonsModel = require('../../../../fluent-quest.Domain/model/lesson.model');
 const validateUpdate = require('../../../../fluent-quest.Application/validations/lesson/validateUpdate');
 const { createResponse } = require("../../../../fluent-quest.Services/utils/responseHelper");
-
+const redisClient = require('../../../../fluent-quest.Services/dependency-manager/redisClient');
 exports.update = async (reqData, lessonId) => {
     // destructure the request data to get the user details
     const { title, course_id, description, type, duration, order, point } = reqData;
@@ -19,7 +19,7 @@ exports.update = async (reqData, lessonId) => {
     try {
         // update the database by creating new user
         // this will create a new user in the database       
-        const updatedCourse = await lessonsModel.findOneAndUpdate({
+        const updatedLesson = await lessonsModel.findOneAndUpdate({
             _id: lessonId
         }, {
             title: title,
@@ -36,15 +36,19 @@ exports.update = async (reqData, lessonId) => {
         // preparing the payload to return
         // this payload will be used to send the response back to the client
         const payload = {
-            title: updatedCourse.title,
-            course_id: updatedCourse.course_id,
-            description: updatedCourse.description,
-            type: updatedCourse.type,
-            duration: updatedCourse.duration,
-            order: updatedCourse.order,
-            point: updatedCourse.point,
-            thumbnail: updatedCourse.thumbnail
+            title: updatedLesson.title,
+            course_id: updatedLesson.course_id,
+            description: updatedLesson.description,
+            type: updatedLesson.type,
+            duration: updatedLesson.duration,
+            order: updatedLesson.order,
+            point: updatedLesson.point,
+            thumbnail: updatedLesson.thumbnail
         };
+        
+        //invalidate the cache for this key
+        await redisClient.delPattern(`GET:/api/lessons/getAll/${deletedLesson.course_id}*`);
+        await redisClient.delPattern(`GET:/api/lessons/getById/${deletedLesson._id}*`);
 
         // return the response with status code 201 and success message
         // this response will be sent back to the client
