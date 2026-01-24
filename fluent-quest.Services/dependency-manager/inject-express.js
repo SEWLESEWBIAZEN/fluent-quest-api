@@ -22,17 +22,19 @@ module.exports = async (app) => {
     //</summary>
 
     //<summary>
-    // Stripe webhook endpoint needs raw body for signature verification
+    // Stripe webhook endpoints need raw body for signature verification
     // This must be before JSON body parser
     //</summary>
     app.use('/api/payments/webhook', express.raw({ type: 'application/json' }));
+    app.use('/api/subscriptions/webhook', express.raw({ type: 'application/json' }));
 
     //<summary>
     // Parses incoming requests with JSON payloads and makes the data available in req.body
     // Skip JSON parsing for webhook endpoint (it uses raw body)
     const jsonParser = express.json({ limit: '20mb' });
     app.use((req, res, next) => {
-        if (req.path === '/api/payments/webhook' || req.path === '/payments/webhook') {
+        if (req.path === '/api/payments/webhook' || req.path === '/payments/webhook' ||
+            req.path === '/api/subscriptions/webhook' || req.path === '/subscriptions/webhook') {
             return next();
         }
         return jsonParser(req, res, next);

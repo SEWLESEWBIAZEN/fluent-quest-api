@@ -1,6 +1,7 @@
 const { stripe } = require('../../../../fluent-quest.Services/external-services/stripe');
 const paymentModel = require('../../../../fluent-quest.Domain/model/payment.model');
 const usersModel = require('../../../../fluent-quest.Domain/model/user.model');
+const handleSubscriptionWebhook = require('../../../subscription/request/handleSubscriptionWebhook');
 const { createResponse } = require('../../../../fluent-quest.Services/utils/responseHelper');
 
 exports.handle = async (event) => {
@@ -106,7 +107,11 @@ exports.handle = async (event) => {
                 break;
 
             default:
-                // Handle other event types if needed
+                // Check if it's a subscription event and delegate to subscription webhook handler
+                if (event.type.startsWith('customer.subscription.') || 
+                    event.type.startsWith('invoice.')) {
+                    await handleSubscriptionWebhook.handle(event);
+                }
                 break;
         }
 
